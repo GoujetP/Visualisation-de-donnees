@@ -1,6 +1,6 @@
-# *Fiches Descriptives*
+# <u>*Fiches Descriptives*</u>
 
-## ~Fiche descriptive 01~
+## *Fiche descriptive 01*
 
 | Fiche descriptive 01       |                                                   |
 | -------------------------- | ------------------------------------------------- |
@@ -22,7 +22,7 @@
 
 ___
 
-## ~Fiche descriptive 02~
+## *Fiche descriptive 02*
 
 | Fiche descriptive 02       |                                                   |
 | -------------------------- | ------------------------------------------------- |
@@ -59,7 +59,7 @@ ___
 
 ___
 
-## ~Fiche descriptive 03~
+## *Fiche descriptive 03*
 
 | Fiche descriptive 03       |                                                   |
 | -------------------------- | ------------------------------------------------- |
