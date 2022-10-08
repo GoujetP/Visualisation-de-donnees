@@ -1,0 +1,19 @@
+# *Travail à faire, rendus, répartition …*
+
+```text
+    TODO :
+
+14/10 : Fiches descriptives + Diagramme de CU
+
+28/10 : Dépôt diagramme de classe
+
+26/10 : Diapo IA
+```
+
+1. 03/10 TP Encadré (M.Nongaillard, 4A08) : Diagramme de C.U
+
+    ![DiagrammeDeCasUtilisation](DiagrammeCasUtilisation.png)
+
+2. 06/10 TP Autonomie (4A08) : Fiches Descriptives
+
+    Voici le fichier contetant les [FichesDescriptives](https://google.com) de certains `scénarios.`
