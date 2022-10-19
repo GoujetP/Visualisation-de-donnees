@@ -14,7 +14,7 @@
 
 ## 03/10 TP Encadré (M.Nongaillard, 4A08) : Diagramme de C.U
 
-![DiagrammeDeCasUtilisation](DiagrammeCasUtilisation.png)
+![DiagrammeDeCasUtilisation](DiagrammeCasUtilisation2.png)
 
 ## 06/10 TP Autonomie (4A08) : Fiches Descriptives
 

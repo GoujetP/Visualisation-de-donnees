@@ -101,3 +101,48 @@ ___
     1) Le jeu de données n’est pas valide, le système renvoie à l’étape 2) du Scénario Nominal
 
 ```
+
+
+## *Fiche descriptive 04*
+
+| Fiche descriptive 04       |                                                   |
+| -------------------------- | ------------------------------------------------- |
+| Cas d’utilisation :        | Sauvegarder les données                           |
+| Acteur principal :         | Utilisateur                                       |
+| Acteur secondaire :        | Aucun                                             |
+| Préconditions :            | avoir des données                                 |
+| Garantie en cas de succès :| Les données sont sauvegardées dans fichier en csv |
+| Garantie minimale :        | Retour à l’état initial                           |
+
+### Scénario Nominal Fiche 04
+
+```text
+
+    1) L’utilisateur lance la fonctionnalité “Sauvegarder les données
+    2) Le système propose de choisir un nom pour la sauvegarde
+    3) L’utilisateur valide la sauvegarde
+    4) Le jeu de données est sauvegardé dans un fichier csv 
+
+```
+
+## *Fiche descriptive 05*
+
+| Fiche descriptive 05       |                                                   |
+| -------------------------- | ------------------------------------------------- |
+| Cas d’utilisation :        | Choisir le mode de traitement                     |
+| Acteur principal :         | Utilisateur                                       |
+| Acteur secondaire :        | Aucun                                             |
+| Préconditions :            | données Chargées                                  |
+| Garantie en cas de succès :| Jeu de données taité                              |
+| Garantie minimale :        | Retour à l’état initial                           |
+
+### Scénario Nominal Fiche 05
+
+```text
+
+    1) L’utilisateur sélectionne la fonctionnalité “Choisir le mode de traitements des données”
+    2) Le système propose un choix entre différents mode de traitements
+    3) L’utilisateur choisi et valide le mode de traitement des données est changé
+    4) Les données vont être traitées de la manière choisie
+
+```
