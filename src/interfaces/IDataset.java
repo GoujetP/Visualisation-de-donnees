@@ -12,6 +12,8 @@ import java.util.List;
  * d'un DataSet.
  */
 public interface IDataset extends Iterable<IPoint> {
+	
+	
 	/**
 	 * Le nom du DataSet ex: Titanic, Iris, Pokemon, ...
 	 */
