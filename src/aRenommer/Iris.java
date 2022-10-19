@@ -10,17 +10,41 @@ public class Iris implements IPoint{
 	private double sepalWidth;
 	@CsvBindByName(column = "sepal.length")
 	private double sepalLength;
-	@CsvBindByName(column = "sepal.width")
+	@CsvBindByName(column = "petal.width")
 	private double petalWidth;
-	@CsvBindByName(column = "sepal.width")
+	@CsvBindByName(column = "petal.width")
 	private double petalLength;
+	@CsvBindByName(column = "variety")
+	private String variety;
 	
 	
 	@Override
 	public Object getValue(IColumn col) {
-		return col.getName();
+		switch(col.getName()) {
+		case "sepal.width" :
+			return this.sepalWidth;
+		case "sepal.length" : 
+			return this.sepalLength;
+		case "petal.width" :
+			return this.petalWidth;
+		case "petal.length" : 
+			return this.petalLength;
+		case "variety" :
+			return this.variety;
+		default :
+			return null;
+		}
+		
 	}
 	
+	@Override
+	public String toString() {
+		return "Iris [sepalWidth=" + sepalWidth + ", sepalLength=" + sepalLength + ", petalWidth=" + petalWidth
+				+ ", petalLength=" + petalLength + "-> variety=" + variety + "]";
+	}
+
+
+
 	@Override
 	public double getNormalizedValue(IColumn xcol) {
 		// TODO Auto-generated method stub
