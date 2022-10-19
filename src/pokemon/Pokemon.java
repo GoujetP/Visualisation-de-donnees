@@ -2,6 +2,7 @@ package pokemon;
 
 import com.opencsv.bean.CsvBindByName;
 
+import interfaces.IColumn;
 import interfaces.IPoint;
 
 public class Pokemon implements IPoint{
@@ -54,5 +55,45 @@ public class Pokemon implements IPoint{
 	@Override
 	public String toString() {
 		return "name : " + this.name + "\nisLegendary : " + this.isLegendary; 
+	}
+
+	@Override
+	public Object getValue(IColumn col) {
+		switch(col.getName()) {
+		case "name" :
+			return this.name;
+		case "attack" :
+			return this.attack;
+		case "base_egg_steps" :
+			return this.baseEggSteps;
+		case "capture_rate" :
+			return this.captureRate;
+		case "defense" :
+			return this.defense;
+		case "experience_growth":
+			return this.experienceGrowth;
+		case "hp" :
+			return this.hp;
+		case "sp_attack" :
+			return this.spAttack;
+		case "sp_defense" :
+			return this.spDefense;
+		case "type1" :
+			return this.type1;
+		case "type2" :
+			return this.type2;
+		case "speed" :
+			return this.speed;
+		case "is_legendary" : 
+			return this.isLegendary;
+		default :
+			return null;
+		}
+		
+	}
+
+	@Override
+	public double getNormalizedValue(IColumn xcol) {
+		return xcol.getNormalizedValue(this);
 	}
 }
