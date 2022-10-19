@@ -4,13 +4,13 @@ import java.util.Collection;
 import java.util.List;
 
 /**
-* Decrit un modele de donnee dans le MVC.
-*
-* Un modele de donnee est un {@link IDataset}, il peut en plus lire ses
-* donnees d'un fichier (CSV) ou d'une chaine de caracteres,
-* il a une colonne et une ligne par defaut pour afficher un nuage de point
-* et il peut avoir des categories
-*/
+ * Decrit un modele de donnee dans le MVC.
+ *
+ * Un modele de donnee est un {@link IDataset}, il peut en plus lire ses
+ * donnees d'un fichier (CSV) ou d'une chaine de caracteres,
+ * il a une colonne et une ligne par defaut pour afficher un nuage de point
+ * et il peut avoir des categories
+ */
 public interface IMVCModel extends IDataset {
 	/**
 	 * Charge les donnees du modele d'un fichier CSV.
