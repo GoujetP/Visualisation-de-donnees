@@ -1,4 +1,8 @@
 package interfaces;
+
+import java.util.Collection;
+import java.util.List;
+
 /**
 * Decrit un modele de donnee dans le MVC.
 *
