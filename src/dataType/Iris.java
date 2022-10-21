@@ -1,4 +1,4 @@
-package aRenommer;
+package dataType;
 
 import com.opencsv.bean.CsvBindByName;
 
@@ -17,6 +17,11 @@ public class Iris implements IPoint{
 	@CsvBindByName(column = "variety")
 	private String variety;
 	
+	@Override
+	public String toString() {
+		return "Iris [sepalWidth=" + sepalWidth + ", sepalLength=" + sepalLength + ", petalWidth=" + petalWidth
+				+ ", petalLength=" + petalLength + "-> variety=" + variety + "]";
+	}
 	
 	@Override
 	public Object getValue(IColumn col) {
@@ -34,20 +39,10 @@ public class Iris implements IPoint{
 		default :
 			return null;
 		}
-		
 	}
 	
 	@Override
-	public String toString() {
-		return "Iris [sepalWidth=" + sepalWidth + ", sepalLength=" + sepalLength + ", petalWidth=" + petalWidth
-				+ ", petalLength=" + petalLength + "-> variety=" + variety + "]";
-	}
-
-
-
-	@Override
 	public double getNormalizedValue(IColumn xcol) {
-		// TODO Auto-generated method stub
-		return 0;
+		return xcol.getNormalizedValue(this);
 	}
 }

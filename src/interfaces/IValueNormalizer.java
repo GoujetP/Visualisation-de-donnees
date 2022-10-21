@@ -27,7 +27,7 @@ public interface IValueNormalizer {
 	 * constante associee et un <i>normaliseur</i></li>
 	 * </ul>
 	 */
-	public enum NormalizerTypes {
+	public enum NormalizerTypes { 
 		NUMBER_NORMALIZER, BOOLEAN_NORMALIZER, POKEMON_TYPE_NORMALIZER;
 	}
 	/**
