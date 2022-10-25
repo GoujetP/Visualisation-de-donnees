@@ -59,13 +59,51 @@ public class Pokemon implements IPoint{
 
 	@Override
 	public Object getValue(IColumn col) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		return null;
+=======
+		switch(col.getName()) {
+		case "name" :
+			return this.name;
+		case "attack" :
+			return this.attack;
+		case "base_egg_steps" :
+			return this.baseEggSteps;
+		case "capture_rate" :
+			return this.captureRate;
+		case "defense" :
+			return this.defense;
+		case "experience_growth":
+			return this.experienceGrowth;
+		case "hp" :
+			return this.hp;
+		case "sp_attack" :
+			return this.spAttack;
+		case "sp_defense" :
+			return this.spDefense;
+		case "type1" :
+			return this.type1;
+		case "type2" :
+			return this.type2;
+		case "speed" :
+			return this.speed;
+		case "is_legendary" : 
+			return this.isLegendary;
+		default :
+			return null;
+		}
+		
+>>>>>>> d3a818df1f42420b5eb66778b9129eb06169ff01
 	}
 
 	@Override
 	public double getNormalizedValue(IColumn xcol) {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
 		return 0;
+=======
+		return xcol.getNormalizedValue(this);
+>>>>>>> d3a818df1f42420b5eb66778b9129eb06169ff01
 	}
 }
