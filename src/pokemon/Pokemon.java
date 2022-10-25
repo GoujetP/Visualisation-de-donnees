@@ -2,6 +2,7 @@ package pokemon;
 
 import com.opencsv.bean.CsvBindByName;
 
+import interfaces.IColumn;
 import interfaces.IPoint;
 
 public class Pokemon implements IPoint{
@@ -54,5 +55,17 @@ public class Pokemon implements IPoint{
 	@Override
 	public String toString() {
 		return "name : " + this.name + "\nisLegendary : " + this.isLegendary; 
+	}
+
+	@Override
+	public Object getValue(IColumn col) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getNormalizedValue(IColumn xcol) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
