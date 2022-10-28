@@ -59,6 +59,10 @@ public class Pokemon implements IPoint{
 
 	@Override
 	public Object getValue(IColumn col) {
+<<<<<<< HEAD
+		// TODO Auto-generated method stub
+		return null;
+=======
 		switch(col.getName()) {
 		case "name" :
 			return this.name;
@@ -90,10 +94,16 @@ public class Pokemon implements IPoint{
 			return null;
 		}
 		
+>>>>>>> d3a818df1f42420b5eb66778b9129eb06169ff01
 	}
 
 	@Override
 	public double getNormalizedValue(IColumn xcol) {
+<<<<<<< HEAD
+		// TODO Auto-generated method stub
+		return 0;
+=======
 		return xcol.getNormalizedValue(this);
+>>>>>>> d3a818df1f42420b5eb66778b9129eb06169ff01
 	}
 }
