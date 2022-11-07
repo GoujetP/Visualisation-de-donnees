@@ -1,4 +1,4 @@
-package aRenommer;
+package dataType;
 
 import interfaces.IColumn;
 import interfaces.IPoint;
@@ -32,14 +32,17 @@ public class Passenger implements IPoint{
 	private char Embarked;
 	
 	@Override
+	public String toString() {
+		return "Passenger [Name=" + Name + ", Embarked=" + Embarked + "]";
+	}
+	
+	@Override
 	public Object getValue(IColumn col) {
 		return col.getName();
 	}
 
 	@Override
 	public double getNormalizedValue(IColumn xcol) {
-		// TODO Auto-generated method stub
-		return 0;
+		return xcol.getNormalizedValue(this);
 	}
-
 }
