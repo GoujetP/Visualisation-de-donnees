@@ -1,6 +1,4 @@
-package vracTmp;
-
-
+package model;
 
 public class DataSet {
 
@@ -9,5 +7,5 @@ public class DataSet {
 	
 	// Constructor
 	
-	// Mehtods
+	// Methods
 }

@@ -1,7 +1,5 @@
-package dataType;
+package model;
 
-import interfaces.IColumn;
-import interfaces.IPoint;
 import com.opencsv.bean.CsvBindByName;
 
 public class Passenger implements IPoint{

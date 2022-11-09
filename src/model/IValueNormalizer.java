@@ -1,4 +1,4 @@
-package interfaces;
+package model;
 
 /**
  * Decrit un <i>Normaliseur</i>, c'est a dire un objet qui peut transformer

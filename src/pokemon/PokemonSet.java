@@ -9,8 +9,8 @@ import java.util.List;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import interfaces.IDataset;
-import interfaces.IPoint;
+import model.IDataset;
+import model.IPoint;
 
 public class PokemonSet implements IDataset {
 	

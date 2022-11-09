@@ -1,4 +1,4 @@
-package interfaces;
+package model;
 
 /**
  * Decrit un Point (ou donnee, ou ligne) dans un DataSet.

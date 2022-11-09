@@ -2,8 +2,8 @@ package pokemon;
 
 import com.opencsv.bean.CsvBindByName;
 
-import interfaces.IColumn;
-import interfaces.IPoint;
+import model.IColumn;
+import model.IPoint;
 
 public class Pokemon implements IPoint {
 	

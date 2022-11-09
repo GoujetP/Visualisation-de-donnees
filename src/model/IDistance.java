@@ -1,4 +1,4 @@
-package vracTmp;
+package model;
 
 public interface IDistance {
 	

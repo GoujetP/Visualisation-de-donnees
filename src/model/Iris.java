@@ -1,9 +1,6 @@
-package dataType;
+package model;
 
 import com.opencsv.bean.CsvBindByName;
-
-import interfaces.IColumn;
-import interfaces.IPoint;
 
 public class Iris implements IPoint{
 	@CsvBindByName(column = "sepal.width")

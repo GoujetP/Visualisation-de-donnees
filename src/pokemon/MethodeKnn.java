@@ -3,8 +3,8 @@ package pokemon;
 import java.util.Iterator;
 import java.util.List;
 
-import interfaces.IDataset;
-import interfaces.IPoint;
+import model.IDataset;
+import model.IPoint;
 
 public class MethodeKnn implements IDataset{
 	

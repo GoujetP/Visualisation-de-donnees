@@ -1,4 +1,4 @@
-package interfaces;
+package model;
 
 /**
  * Decrit une <i>colonne</i> d'un DataSet.
