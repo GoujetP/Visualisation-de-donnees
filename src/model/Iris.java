@@ -14,6 +14,24 @@ public class Iris implements IPoint{
 	@CsvBindByName(column = "variety")
 	private String variety;
 	
+	public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength, String variety) {
+		super();
+		this.sepalWidth = sepalWidth;
+		this.sepalLength = sepalLength;
+		this.petalWidth = petalWidth;
+		this.petalLength = petalLength;
+		this.variety = variety;
+	}
+	
+	public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength) {
+		super();
+		this.sepalWidth = sepalWidth;
+		this.sepalLength = sepalLength;
+		this.petalWidth = petalWidth;
+		this.petalLength = petalLength;
+		this.variety = null;
+	}
+
 	@Override
 	public String toString() {
 		return "Iris [sepalWidth=" + sepalWidth + ", sepalLength=" + sepalLength + ", petalWidth=" + petalWidth
