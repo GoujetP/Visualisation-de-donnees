@@ -34,4 +34,10 @@ public interface IDataset extends Iterable<IPoint> {
 	 * Ajoute une collection de donnees dans le DataSet
 	 */
 	void addAllLine(List<IPoint> element);
+	
+	/**
+	 * Récupère la liste de Ipoint du dataSet
+	 */
+	
+	public List<IPoint> getList();
 }

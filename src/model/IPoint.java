@@ -11,7 +11,7 @@ public interface IPoint {
 	 * un type), mais cela complique significativement d'autres parties
 	 * du code.
 	 */
-	public Object getValue(IColumn col);
+	public Object getValue(String nom);
 	/**
 	 * Retourne la valeur de ce point normalisee pour la colonne en parametre.
 	 *import interfaces.IValueNormalizer;
