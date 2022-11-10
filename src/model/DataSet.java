@@ -5,8 +5,15 @@ import java.util.List;
 public class DataSet implements IDataset {
 	private String title;
 	private List<IPoint> datas;
-	private List<Column> columns;
+	private List<IColumn> columns;
 	
+	public DataSet(String title, List<IPoint> datas, List<IColumn> columns) {
+		super();
+		this.title = title;
+		this.datas = datas;
+		this.columns = columns;
+	}
+
 	@Override
 	public Iterator<IPoint> iterator() {
 		// TODO Auto-generated method stub
