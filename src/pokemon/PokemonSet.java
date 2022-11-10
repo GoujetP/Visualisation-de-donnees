@@ -64,7 +64,6 @@ public class PokemonSet implements IDataset {
     	Personne p = new Personne(d);
     	p.setScoreNormalise(normaliser_0_1(d.getScore(), getMin(l), getMax(l)));
     	return p;
-    	
     }
     
     public static double getMin(List<FormatDonneeBrut> l) {
