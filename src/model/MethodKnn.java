@@ -5,14 +5,14 @@ import java.util.List;
 public class MethodKnn implements IClassificator {
 	
 	// Class Attributes
-	private DataSet datas;
+	private DataSet ds;
 	private IDistance distance;
 	
 	// Constructor
 	public MethodKnn() {}
 	
-	public MethodKnn(DataSet datas, IDistance distance) {
-		this.datas = datas;
+	public MethodKnn(DataSet ds, IDistance distance) {
+		this.ds = ds;
 		this.distance = distance;
 	}
 	

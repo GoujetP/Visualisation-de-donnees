@@ -4,6 +4,7 @@ package model;
  * Decrit un Point (ou donnee, ou ligne) dans un DataSet.
  */
 public interface IPoint {
+	
 	/**
 	 * Retourne la valeur de ce point pour la colonne en parametre.
 	 *
@@ -19,4 +20,7 @@ public interface IPoint {
 	 * Si la colonne n'est pas normalisable, le comportement n'est pas defini.
 	 */
 	public double getNormalizedValue(IColumn xcol);
+	
+	
+
 }
