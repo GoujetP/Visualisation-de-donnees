@@ -3,16 +3,18 @@ package model;
 import java.lang.Math;
 
 public class DManhattan implements IDistance{
+	sprotected DataSet ds;
 
-	public double distance(IPoint p1, IPoint p2) {
+	public DManhattan(DataSet ds) {
+		super();
+		this.ds = ds;
+	}
+
+	public double distance(IPoint p1, IPoint p2 ) {
 		double res = 0.0;
-		//DataSet ds = p1.getDataset();
-		//ds.get
-		for(IColumn c : ) {
-				res += Math.abs(p1.getValue(c) - p2.getValue(c));
+		for(IColumn c : ds.getColumns() ) {
+			res += Math.abs((c.getNormalizedValue(p1))- c.getNormalizedValue(p2));
 		}
-		
 		return res;
 	}
-	
 }
