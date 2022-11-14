@@ -51,8 +51,8 @@ public class Iris implements IPoint{
 	}
 	
 	@Override
-	public Object getValue(IColumn col) {
-		switch(col.getName()) {
+	public Object getValue(String name) {
+		switch(name) {
 		case "sepal.width" :
 			return this.sepalWidth;
 		case "sepal.length" : 

@@ -62,6 +62,7 @@ public class DataSet implements IDataset {
 		
 	}
 
+<<<<<<< HEAD
 	public void chargerReader(Reader reader,  Class<IPoint> d) {
 		this.datas = new CsvToBeanBuilder<IPoint>(reader)
 		        .withSeparator(',')
@@ -79,4 +80,20 @@ public class DataSet implements IDataset {
 		}
 		
 	}
+=======
+
+	public List<IColumn> getColumns() {
+		return columns;
+	}
+	
+	
+	
+	
+
+	@Override
+	public List<IPoint> getList() {
+		return datas;
+	}
+
+>>>>>>> 530180ad12a0b3f146cd49a368a0e94170a19380
 }

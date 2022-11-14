@@ -35,12 +35,29 @@ public class Passenger implements IPoint{
 	}
 	
 	@Override
-	public Object getValue(IColumn col) {
-		return col.getName();
+	public Object getValue(String nom) {
+		switch (nom) {
+		case "PassengerId" : return PassengerId;
+		case "Survived" : return Survived;
+		case "Pclass" : return Pclass;
+		case "Name" : return Name;
+		case "Sex" : return Sex;
+		case "Age" : return Age;
+		case "SibSp" : return SibSp;
+		case "Parch" : return Parch;
+		case "Ticket" : return Ticket;
+		case "Fare" : return Fare;
+		case "Cabin" : return Cabin;
+		case "Embarked" : return Embarked;
+		}
+		return null;
 	}
 
 	@Override
 	public double getNormalizedValue(IColumn xcol) {
 		return xcol.getNormalizedValue(this);
 	}
+	
+	//--------------------------------------- Test Mohamed --------------------------------------//
+	
 }

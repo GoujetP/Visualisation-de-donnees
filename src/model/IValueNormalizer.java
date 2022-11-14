@@ -28,12 +28,12 @@ public interface IValueNormalizer {
 	 * </ul>
 	 */
 	public enum NormalizerTypes { 
-		NUMBER_NORMALIZER, BOOLEAN_NORMALIZER, STRING_TYPE_NORMALIZER, NO_NORMALIZER;
+		NUMBER_NORMALIZER, BOOLEAN_NORMALIZER , NO_NORMALIZER;
 	}
 	/**
 	 * Retourne la valeur en parametre normalisee (entre 0 et 1).
 	 */
-	public double normalize(Object value);
+	public double normalize(Object value, IColumn Column);
 	/**
 	 * De-normalise la valeur en parametre (qui est entre 0 et 1)
 	 * Retourne la « vraie » valeur correspondante pour la colonne

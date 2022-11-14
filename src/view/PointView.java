@@ -4,7 +4,18 @@ import utils.Observer;
 import utils.Subject;
 
 public class PointView implements Observer{
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void update(Subject subj) {
 		// TODO Auto-generated method stub
