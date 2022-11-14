@@ -1,6 +1,16 @@
 package model;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
+
+import org.graalvm.compiler.code.DataSection.Data;
+
+import com.opencsv.bean.CsvToBeanBuilder;
+
+import pokemon.Pokemon;
 
 public class DataSet implements IDataset {
 	private String title;
@@ -48,6 +58,24 @@ public class DataSet implements IDataset {
 	public void addAllLine(List<IPoint> element) {
 		for (IPoint p : element) {
 			this.datas.add(p);
+		}
+		
+	}
+
+	public void chargerReader(Reader reader,  Class<IPoint> d) {
+		this.datas = new CsvToBeanBuilder<IPoint>(reader)
+		        .withSeparator(',')
+		        .withType(d)
+		        .build().parse();
+	}
+	
+	@Override
+	public void charger(String fileName, Class<IPoint> d) {
+		
+		try {
+			chargerReader(Files.newBufferedReader(Paths.get("data/" + fileName)), d);
+		} catch (IllegalStateException | IOException e) {
+			System.out.println(e.getMessage());
 		}
 		
 	}

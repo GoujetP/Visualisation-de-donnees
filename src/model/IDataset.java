@@ -34,4 +34,6 @@ public interface IDataset extends Iterable<IPoint> {
 	 * Ajoute une collection de donnees dans le DataSet
 	 */
 	void addAllLine(List<IPoint> element);
+	
+	public void charger(String fileName);
 }
