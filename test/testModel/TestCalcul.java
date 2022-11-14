@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.DEuclidienne;
@@ -15,14 +16,23 @@ import model.Iris;
 import model.MethodKnn;
 
 public class TestCalcul {
-	static Iris i1 = new Iris(1.0,1.0,1.0,1.0);
-	static Iris i2 = new Iris(1.5,1.5,1.5,1.5);
-	static Iris i3 = new Iris(2.0,2.0,2.0,2.0);
-	static Iris i4 = new Iris(2.5,2.5,2.5,2.5);
+	
+	protected Iris i1; 
+	protected Iris i2;
+	protected Iris i3; 
+	protected Iris i4;
+	
+	@BeforeEach
+	public void setup() {
+		i1 = new Iris(1.0,1.0,1.0,1.0);
+		i2 = new Iris(1.5,1.5,1.5,1.5);
+		i3 = new Iris(2.0,2.0,2.0,2.0);
+		i4 = new Iris(2.5,2.5,2.5,2.5);
+	}
 	
 	@Test
 	public void testGetNormalizedValue() {
-		//TODO
+		//TODO Une fois que les Distances fonctionnent
 	}
 	
 	@Test

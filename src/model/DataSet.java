@@ -52,6 +52,7 @@ public class DataSet implements IDataset {
 		
 	}
 
+
 	public List<IColumn> getColumns() {
 		return columns;
 	}
@@ -59,4 +60,10 @@ public class DataSet implements IDataset {
 	
 	
 	
+
+	@Override
+	public List<IPoint> getList() {
+		return datas;
+	}
+
 }
