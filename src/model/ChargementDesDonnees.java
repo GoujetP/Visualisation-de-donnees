@@ -18,9 +18,20 @@ public class ChargementDesDonnees {
 	// Methods
 	
 	public List<IPoint> chargerReader(Reader reader,  Class<? extends IPoint> d) {
-		return null;
+		return new CsvToBeanBuilder<IPoint>(reader)
+		        .withSeparator(',')
+		        .withType(d)
+		        .build().parse();
 	}
 	
-	public void charger(String fileName, Class<IPoint> d) {}
+	public void charger(String fileName, Class<IPoint> d) {
+		
+		try {
+			chargerReader(Files.newBufferedReader(Paths.get("data/" + fileName)), d);
+		} catch (IllegalStateException | IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
 	
 }

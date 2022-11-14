@@ -20,14 +20,9 @@ public interface IPoint {
 	 * Si la colonne n'est pas normalisable, le comportement n'est pas defini.
 	 */
 	public double getNormalizedValue(IColumn xcol);
-	
-<<<<<<< HEAD
+
 	/**
 	 * Charge les données du fichier CSV passé en paramètre
 	 */
 	public void charger(String fileName);
-=======
-	
-
->>>>>>> 530180ad12a0b3f146cd49a368a0e94170a19380
 }
