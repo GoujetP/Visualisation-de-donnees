@@ -1,6 +1,4 @@
-package model;
-
-import model.IValueNormalizer.NormalizerTypes;
+package interfaces;
 
 /**
  * Decrit une <i>colonne</i> d'un DataSet.
@@ -13,7 +11,6 @@ import model.IValueNormalizer.NormalizerTypes;
  * etre utilisees comme axe dans le nuage de points.
  */
 public interface IColumn {
-	
 	/**
 	 * stocke le <i>normaliseur</i> en parametre dans la colonne.
 	 */
@@ -44,11 +41,4 @@ public interface IColumn {
 	 * Indique si cette colonne est normalisable (a un <i>normaliseur</i>).
 	 */
 	public boolean isNormalizable();
-	
-	public NormalizerTypes getType();
-	
-	public int getMin() ;
-	
-	public int getMax() ;
-	
 }

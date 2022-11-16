@@ -3,7 +3,7 @@ package model;
 import java.lang.Math;
 
 public class DManhattan implements IDistance{
-	sprotected DataSet ds;
+	protected DataSet ds;
 
 	public DManhattan(DataSet ds) {
 		super();
