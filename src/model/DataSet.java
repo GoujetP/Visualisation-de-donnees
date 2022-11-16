@@ -52,7 +52,6 @@ public class DataSet implements IDataset {
 		
 	}
 
-
 	public List<IColumn> getColumns() {
 		return columns;
 	}

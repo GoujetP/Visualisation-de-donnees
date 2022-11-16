@@ -1,18 +1,29 @@
 package model;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvToBeanBuilder;
 
 public class Iris implements IPoint{
+	
+	// Class Attributes
 	@CsvBindByName(column = "sepal.width")
 	private double sepalWidth;
 	@CsvBindByName(column = "sepal.length")
 	private double sepalLength;
 	@CsvBindByName(column = "petal.width")
 	private double petalWidth;
-	@CsvBindByName(column = "petal.width")
+	@CsvBindByName(column = "petal.length")
 	private double petalLength;
 	@CsvBindByName(column = "variety")
 	private String variety;
+	
+	
+	// Constructor
+	public Iris() {}
 	
 	public Iris(double sepalWidth, double sepalLength, double petalWidth, double petalLength, String variety) {
 		super();
@@ -32,10 +43,11 @@ public class Iris implements IPoint{
 		this.variety = null;
 	}
 
+	// Methods
 	@Override
 	public String toString() {
 		return "Iris [sepalWidth=" + sepalWidth + ", sepalLength=" + sepalLength + ", petalWidth=" + petalWidth
-				+ ", petalLength=" + petalLength + "-> variety=" + variety + "]";
+				+ ", petalLength=" + petalLength + "-> variety=" + variety + "]";		
 	}
 	
 	@Override
@@ -60,4 +72,17 @@ public class Iris implements IPoint{
 	public double getNormalizedValue(IColumn xcol) {
 		return xcol.getNormalizedValue(this);
 	}
+
+	@Override
+	public void charger(String fileName) {
+		try {
+			new CsvToBeanBuilder<Iris>(Files.newBufferedReader(Paths.get("data/" + fileName)))
+			        .withSeparator(',')
+			        .withType(Iris.class)
+			        .build().parse();
+		} catch (IllegalStateException | IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 }
