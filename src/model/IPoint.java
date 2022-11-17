@@ -21,10 +21,5 @@ public interface IPoint {
 	 */
 
 	public double getNormalizedValue(Column xcol);
-
-	/**
-	 * Charge les données du fichier CSV passé en paramètre
-	 */
-	public void charger(String fileName);
 	
 }

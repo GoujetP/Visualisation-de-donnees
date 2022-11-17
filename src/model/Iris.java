@@ -73,10 +73,4 @@ public class Iris implements IPoint{
 		return xcol.getNormalizedValue(this);
 	}
 
-	@Override
-	public void charger(String fileName) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
