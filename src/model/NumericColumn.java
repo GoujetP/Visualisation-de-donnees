@@ -1,72 +1,41 @@
 package model;
 
-import java.util.ArrayList;
-
-import model.IValueNormalizer.NormalizerTypes;
-
-public class NumericColumn implements IColumn {
-	private String nomCol;
-	private IValueNormalizer valueNormalizer;
-	private IDataset dataSet;
-	private NormalizerTypes type = NormalizerTypes.NUMBER_NORMALIZER;
-	// Mohamed
-	private ArrayList<Integer> list;
-
-	public NumericColumn(String nomCol, IValueNormalizer valueNormalizer, IDataset dataSet , NormalizerTypes type) {
-		super();
-		this.nomCol = nomCol;
-		this.valueNormalizer = valueNormalizer;
-		this.dataSet = dataSet;
-		this.type = type;
-		// Mohamed
-		for(IPoint point : dataSet.getList()) {
-			list.add((int) point.getValue(nomCol));
-		}
-	}
+public class NumericColumn extends Column  {
 	
+	protected Number max;
+	protected Number min;
 
-	@Override
-	public void setNormalizer(IValueNormalizer valueNormalizer) {
-		// TODO Auto-generated method stub
-		this.valueNormalizer=valueNormalizer;
-	}
-	
-	@Override
-	public double getNormalizedValue(IPoint point) {
-		// TODO Auto-generated method stub
-		return valueNormalizer.normalize(point);
+	NumericColumn(String name) {
+		super(name);
+		max = Double.MIN_VALUE;
+		min = Double.MAX_VALUE;
 	}
 
 	@Override
-	public Object getDenormalizedValue(double value) {
-		// TODO Auto-generated method stub
-		return valueNormalizer.denormalize(value);
+	public double normalize(Object value) {
+		Number val = (Number)value;
+		return (val.doubleValue()-min.doubleValue())/(max.doubleValue()-min.doubleValue());
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return this.nomCol;
-	}
-
-	@Override
-	public IDataset getDataset() {
-		// TODO Auto-generated method stub
-		return dataSet;
+	public Object denormalize(double value) {
+		return value*(max.doubleValue()-min.doubleValue())+min.doubleValue();
 	}
 
 	@Override
 	public boolean isNormalizable() {
-		// TODO Auto-generated method stub
-		return !this.type.equals(NormalizerTypes.NO_NORMALIZER);
+		return true;
 	}
 
-	// Mohamed
-	public int getMax() {
-		return list.stream().max(Integer::max).get();
-	}
 	
-	public int getMin() {
-		return list.stream().min(Integer::min).get();
+	public void update( Object value) {
+		double val = ((Number)value).doubleValue();
+		if(val > max.doubleValue()) max = val;
+		if(val < min.doubleValue()) min = val;
 	}
+
+	
+
+	
+
 }
