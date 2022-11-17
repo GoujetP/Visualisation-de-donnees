@@ -45,10 +45,6 @@ public interface IColumn {
 	 */
 	public boolean isNormalizable();
 	
-	public NormalizerTypes getType();
 	
-	public int getMin() ;
-	
-	public int getMax() ;
 	
 }

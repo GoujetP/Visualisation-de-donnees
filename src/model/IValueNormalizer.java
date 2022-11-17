@@ -1,5 +1,7 @@
 package model;
 
+import java.io.NotActiveException;
+
 /**
  * Decrit un <i>Normaliseur</i>, c'est a dire un objet qui peut transformer
  * une valeur d'une colone en une valeur entre 0 et 1.
@@ -33,12 +35,13 @@ public interface IValueNormalizer {
 	/**
 	 * Retourne la valeur en parametre normalisee (entre 0 et 1).
 	 */
-	public double normalize(Object value, IColumn Column);
+	public double normalize(Object value) throws NotNormalizable;
 	/**
 	 * De-normalise la valeur en parametre (qui est entre 0 et 1)
 	 * Retourne la « vraie » valeur correspondante pour la colonne
 	 * associee au normaliseur
 	 */
-	public Object denormalize(double value);
+	public Object denormalize(double value) throws NotNormalizable;
+	
 	
 }

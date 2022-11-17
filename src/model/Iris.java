@@ -51,8 +51,8 @@ public class Iris implements IPoint{
 	}
 	
 	@Override
-	public Object getValue(String name) {
-		switch(name) {
+	public Object getValue(Column col) {
+		switch(col.getName()) {
 		case "sepal.width" :
 			return this.sepalWidth;
 		case "sepal.length" : 
@@ -69,8 +69,14 @@ public class Iris implements IPoint{
 	}
 	
 	@Override
-	public double getNormalizedValue(IColumn xcol) {
+	public double getNormalizedValue(Column xcol) {
 		return xcol.getNormalizedValue(this);
+	}
+
+	@Override
+	public void charger(String fileName) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

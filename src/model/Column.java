@@ -1,100 +1,65 @@
 package model;
 
-import java.util.ArrayList;
-
-import model.IValueNormalizer.NormalizerTypes;
-
-public class Column implements IColumn {
-	private String nomCol;
-	private IValueNormalizer valueNormalizer;
-	private IDataset dataSet;
-	private NormalizerTypes type ;
-	// Mohamed
-	private ArrayList<Integer> list;
-
-	public Column(String nomCol, IValueNormalizer valueNormalizer, IDataset dataSet , NormalizerTypes type) {
-		super();
-		this.nomCol = nomCol;
-		this.valueNormalizer = valueNormalizer;
-		this.dataSet = dataSet;
-		this.type = type;
-		// Mohamed
-		for(IPoint point : dataSet.getList()) {
-			list.add((int) point.getValue(nomCol));
+public abstract class Column implements  IValueNormalizer {
+	
+	private String name;
+	protected DataSet dataset;
+	
+	public Column(String name) {
+		this.name = name;
+	}
+	
+	public double getNormalizedValue(IPoint point) {
+		try {
+			return normalize((Object) point.getValue(this));
+		} catch (NotNormalizable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	
-
-	@Override
-	public void setNormalizer(IValueNormalizer valueNormalizer) {
-		// TODO Auto-generated method stub
-		this.valueNormalizer=valueNormalizer;
-	}
-	
-	@Override
-	public double getNormalizedValue(IPoint point) {
-		// TODO Auto-generated method stub
-		return valueNormalizer.normalize(point.getValue(getNomCol()),this);
-	}
-
-	@Override
 	public Object getDenormalizedValue(double value) {
-		// TODO Auto-generated method stub
-		return valueNormalizer.denormalize(value);
+		try {
+			return denormalize(value);
+		} catch (NotNormalizable e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return value;
+		}
 	}
-
-	@Override
+	
 	public String getName() {
-		// TODO Auto-generated method stub
-		return this.nomCol;
+		return name;
+	}
+	
+	public abstract boolean isNormalizable();
+	
+	
+	
+	public boolean isLink() {
+		return dataset != null;
 	}
 
 	@Override
-	public IDataset getDataset() {
-		// TODO Auto-generated method stub
-		return dataSet;
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Column)) {
+			return false;
+		}
+		Column other = (Column) obj;
+		return name.equals(other.name);
 	}
-
+	
 	@Override
-	public boolean isNormalizable() {
-		// TODO Auto-generated method stub
-		return !this.type.equals(NormalizerTypes.NO_NORMALIZER);
+	public String toString() {
+		return name;
 	}
 
-	// Mohamed
-	public int getMax() {
-		return list.stream().max(Integer::max).get();
-	}
-	
-	public int getMin() {
-		return list.stream().min(Integer::min).get();
-	}
-
-
-	public String getNomCol() {
-		return nomCol;
-	}
-
-
-	public IValueNormalizer getValueNormalizer() {
-		return valueNormalizer;
-	}
-
-
-	public IDataset getDataSet() {
-		return dataSet;
-	}
-
-
-	public NormalizerTypes getType() {
-		return type;
-	}
-
-
-	public ArrayList<Integer> getList() {
-		return list;
-	}
-	
-	
 	
 }
