@@ -36,12 +36,17 @@ public interface IDataset extends Iterable<IPoint> {
 	void addAllLine(List<IPoint> element);
 	
 	
-	public List<IColumn> getColumns();
+	public List<Column> getColumns();
 
 	/**
 	 * Récupère la liste de Ipoint du dataSet
 	 */
 	
 	public List<IPoint> getList();
+	
+	/**
+	 * Charge les données du fichier CSV passé en paramètre
+	 */
+	public void charger(String fileName);
 
 }

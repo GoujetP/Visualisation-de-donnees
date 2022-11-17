@@ -73,16 +73,4 @@ public class Iris implements IPoint{
 		return xcol.getNormalizedValue(this);
 	}
 
-	@Override
-	public void charger(String fileName) {
-		try {
-			new CsvToBeanBuilder<Iris>(Files.newBufferedReader(Paths.get("data/" + fileName)))
-			        .withSeparator(',')
-			        .withType(Iris.class)
-			        .build().parse();
-		} catch (IllegalStateException | IOException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
 }

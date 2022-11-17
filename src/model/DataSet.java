@@ -1,13 +1,18 @@
 package model;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
+
+import com.opencsv.bean.CsvToBeanBuilder;
 
 public class DataSet implements IDataset {
 	private String title;
 	private List<IPoint> datas;
-	private List<IColumn> columns;
+	private List<Column> columns;
 	
-	public DataSet(String title, List<IPoint> datas, List<IColumn> columns) {
+	public DataSet(String title, List<IPoint> datas, List<Column> columns) {
 		super();
 		this.title = title;
 		this.datas = datas;
@@ -52,17 +57,26 @@ public class DataSet implements IDataset {
 		
 	}
 
-	public List<IColumn> getColumns() {
+	
+	public List<Column> getColumns() {
 		return columns;
 	}
 	
-	
-	
-	
-
 	@Override
 	public List<IPoint> getList() {
 		return datas;
+	}
+
+	@Override
+	public void charger(String fileName) {
+		try {
+			new CsvToBeanBuilder<Iris>(Files.newBufferedReader(Paths.get("data/" + fileName)))
+			        .withSeparator(',')
+			        .withType(Iris.class)
+			        .build().parse();
+		} catch (IllegalStateException | IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }

@@ -20,7 +20,7 @@ public class TestChargementDesDonnees {
 	protected IPoint emptyIris = new Iris();
 	protected List<IPoint> irisSet = new ArrayList<>();
 	
-	protected String testString = "\"sepal.width\",\"sepal.length\",\"petal.width\",\"petal.length\",\"variety\"\n"
+	protected String irisString = "\"sepal.width\",\"sepal.length\",\"petal.width\",\"petal.length\",\"variety\"\n"
 									+ "5.1,3.5,1.4,0.2,\"Setosa\"\n"
 									+ "4.9,3,1.4,.2,\"Setosa\"\n"
 									+ "6.1,2.9,4.7,1.4,\"Versicolor\"\n"
@@ -39,6 +39,16 @@ public class TestChargementDesDonnees {
 	
 	@Test
 	public void chargementDesDonnees() {
-		assertEquals("Iris [sepalWidth=5.1, sepalLength=3.5, petalWidth=1.4, petalLength=0.2-> variety=Setosa]", new ChargementDesDonnees().chargerReader(new StringReader(testString), Iris.class).get(0).toString());
+		assertEquals("Iris [sepalWidth=5.1, sepalLength=3.5, petalWidth=1.4, petalLength=0.2-> variety=Setosa]", new ChargementDesDonnees().chargerReader(new StringReader(irisString), Iris.class).get(0).toString());
 	}
+	
+	@Test
+	public void valeurManquante() {
+		// TODO gérer trou sur une colonne
+		
+	}
+	
+	// TODO colonne de trop sur une ligne
+	// TODO types différents sur la même colonne
+	// TODO tester tous les types {int, double, String, boolean}
 }
