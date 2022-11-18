@@ -58,11 +58,6 @@ public class Passenger implements IPoint{
 		return xcol.getNormalizedValue(this);
 	}
 
-	@Override
-	public void charger(String fileName) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	//--------------------------------------- Test Mohamed --------------------------------------//
 	

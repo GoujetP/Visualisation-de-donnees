@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MethodKnn implements IClassificator {
@@ -26,7 +27,8 @@ public class MethodKnn implements IClassificator {
 	@Override
 	public List<IPoint> getNeighbours(int k, IPoint p, IDistance d) {
 		// TODO Auto-generated method stub
-		return null;
+		List<IPoint> res = new ArrayList<IPoint>();
+		return res;
 	}
 	
 	@Override
