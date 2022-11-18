@@ -1,5 +1,6 @@
 package testModel;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringReader;
@@ -43,12 +44,28 @@ public class TestChargementDesDonnees {
 	}
 	
 	@Test
-	public void valeurManquante() {
-		// TODO gérer trou sur une colonne
+	public void valeurSupplementaire() {
+		
+		// TODO colonne de trop sur une ligne
+		assertFalse(true);
 		
 	}
 	
-	// TODO colonne de trop sur une ligne
-	// TODO types différents sur la même colonne
-	// TODO tester tous les types {int, double, String, boolean}
+	@Test
+	public void valeurDifferentesSurColonne() {
+		
+		// TODO types différents sur la même colonne
+		assertFalse(true);
+	}
+
+	@Test
+	public void bonsTypes() {		
+		
+		// TODO tester tous les types {int, double, String, boolean}
+		assertFalse(true);
+	}
+	
+	
+	
+	// TODO gérer trou sur une colonne A FAIRE AUTRE PART		
 }

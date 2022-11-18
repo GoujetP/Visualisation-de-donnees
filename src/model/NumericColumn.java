@@ -5,12 +5,12 @@ public class NumericColumn extends Column  {
 	protected Number max;
 	protected Number min;
 
-	NumericColumn(String name) {
-		super(name);
+	NumericColumn(String name, DataSet ds) {
+		super(name ,ds );
 		max = Double.MIN_VALUE;
 		min = Double.MAX_VALUE;
 	}
-
+	
 	@Override
 	public double normalize(Object value) {
 		Number val = (Number)value;
@@ -25,8 +25,9 @@ public class NumericColumn extends Column  {
 	@Override
 	public boolean isNormalizable() {
 		return true;
-	}
 
+	}
+	
 	
 	public void update( Object value) {
 		double val = ((Number)value).doubleValue();

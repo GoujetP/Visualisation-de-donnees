@@ -3,11 +3,11 @@ package model;
 public abstract class Column implements  IValueNormalizer {
 	
 	private String name;
+	protected DataSet dataset;
 	
-	
-	public Column(String name) {
+	public Column(String name , DataSet ds) {
 		this.name = name;
-		
+		this.dataset = ds;
 	}
 	
 	public double getNormalizedValue(IPoint point) {
@@ -38,7 +38,9 @@ public abstract class Column implements  IValueNormalizer {
 	
 	
 	
-	
+	public boolean isLink() {
+		return dataset != null;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
