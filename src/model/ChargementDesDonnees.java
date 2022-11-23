@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class ChargementDesDonnees {
@@ -18,11 +19,35 @@ public class ChargementDesDonnees {
 	// Methods
 	
 	public List<IPoint> chargerReader(Reader reader,  Class<? extends IPoint> d) {
-		return new CsvToBeanBuilder<IPoint>(reader)
-		        .withSeparator(',')
-		        .withType(d)
-		        .build().parse();
+		
+		CsvToBean<IPoint> ctb = new CsvToBean<>();
+		
+		CsvToBeanBuilder<IPoint> ctbb = new CsvToBeanBuilder<IPoint>(reader);
+	       ctb = ctbb.withSeparator(',')
+	        .withType(d)
+	        .build();
+	       
+	    ctb.setOrderedResults(true);
+	    ctb.setThrowExceptions(false);
+	    
+	    return ctb.parse();
 	}
+	
+//	public List<IPoint> chargerReader(Reader reader,  Class<? extends IPoint> d) {
+//		
+//		try {
+//			CsvToBeanBuilder<IPoint> ctbb = new CsvToBeanBuilder<IPoint>(reader);
+//		       ctb = ctbb.withSeparator(',')
+//		        .withType(d)
+//		        .build();
+//		    ctb.setOrderedResults(true);
+//		    ctb.setThrowExceptions(false);
+//			return ctb.parse();
+//		} catch (Exception e) {
+//			System.out.println(e.getMessage());
+//			return new ArrayList<IPoint>();
+//		}
+//	}
 	
 	public void charger(String fileName, Class<IPoint> d) {
 		

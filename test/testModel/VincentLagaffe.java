@@ -33,4 +33,16 @@ public class VincentLagaffe implements IPoint {
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		return "VincentLagaffe [entier=" + entier + ", flottant=" + flottant + ", chaine=" + chaine + ", bool=" + bool
+				+ "]";
+	}
+
+	@Override
+	public Object getValue(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
