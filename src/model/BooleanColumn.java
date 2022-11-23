@@ -3,7 +3,9 @@ package model;
 public class BooleanColumn extends Column {
 
 	public BooleanColumn(String name , DataSet ds) {
-		super(name,ds);
+
+		super(name ,ds);
+
 	}
 
 	@Override

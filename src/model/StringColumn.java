@@ -2,9 +2,9 @@ package model;
 
 public class StringColumn extends Column {
 
+
 	public StringColumn(String name,DataSet ds) {
-		super(name,ds);
-	}
+		super(name,ds);}
 
 	@Override
 	public double normalize(Object value) throws NotNormalizable {

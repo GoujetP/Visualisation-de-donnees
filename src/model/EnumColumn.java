@@ -5,7 +5,9 @@ public class EnumColumn<T extends Enum<T>> extends Column {
 	private Class<T> enumClass;
 	
 	public EnumColumn(String name, Class<T> enumClass , DataSet ds) {
-		super(name , ds);
+
+		super(name , ds );
+
 		this.enumClass = enumClass;
 	}
 	

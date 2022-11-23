@@ -5,9 +5,11 @@ public abstract class Column implements  IValueNormalizer {
 	private String name;
 	protected DataSet dataset;
 	
+
 	public Column(String name,DataSet ds) {
 		this.name = name;
 		this.dataset=ds;
+
 	}
 	
 	public double getNormalizedValue(IPoint point) {
@@ -40,6 +42,10 @@ public abstract class Column implements  IValueNormalizer {
 	
 	public boolean isLink() {
 		return dataset != null;
+	}
+
+	public DataSet getDataset() {
+		return dataset;
 	}
 
 	@Override

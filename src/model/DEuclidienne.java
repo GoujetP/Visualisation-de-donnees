@@ -15,6 +15,7 @@ public class DEuclidienne implements IDistance{
 		double res = 0.0;
 		for(Column c : ds.getColumns() ) {
 			res += Math.pow (Math.abs((c.getNormalizedValue(p1)- c.getNormalizedValue(p2))),2);
+
 		}
 		return res;
 	}
