@@ -1,11 +1,6 @@
 package model;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 public class Iris implements IPoint{
 	
@@ -51,8 +46,21 @@ public class Iris implements IPoint{
 	}
 	
 	@Override
-	public Object getValue(Column col) {
-		switch(col.getName()) {
+	public Object getValue(String name) {
+		if(name.equals("sepalWidth")) {
+			return this.sepalWidth;
+		} else if(name.equals("sepalLength")) {
+			return this.sepalLength;
+		}else if(name.equals("petalWidth")) {
+			return this.petalWidth;
+		}else if(name.equals("petalLength")) {
+			return this.petalLength;
+		}else if(name.equals("variety")) {
+			return this.variety;
+		} else {
+			return null;
+		}
+		/*switch(col.getName()) {
 		case "sepal.width" :
 			return this.sepalWidth;
 		case "sepal.length" : 
@@ -65,12 +73,14 @@ public class Iris implements IPoint{
 			return this.variety;
 		default :
 			return null;
-		}
+		}*/
 	}
 	
 	@Override
 	public double getNormalizedValue(Column xcol) {
 		return xcol.getNormalizedValue(this);
 	}
+
+	
 
 }

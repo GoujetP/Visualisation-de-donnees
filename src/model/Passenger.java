@@ -35,8 +35,8 @@ public class Passenger implements IPoint{
 	}
 	
 	@Override
-	public Object getValue(Column col) {
-		switch (col.getName()) {
+	public Object getValue(String name) {
+		switch (name) {
 		case "PassengerId" : return PassengerId;
 		case "Survived" : return Survived;
 		case "Pclass" : return Pclass;
@@ -58,11 +58,6 @@ public class Passenger implements IPoint{
 		return xcol.getNormalizedValue(this);
 	}
 
-	@Override
-	public void charger(String fileName) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	//--------------------------------------- Test Mohamed --------------------------------------//
 	

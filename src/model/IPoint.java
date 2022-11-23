@@ -12,7 +12,7 @@ public interface IPoint {
 	 * un type), mais cela complique significativement d'autres parties
 	 * du code.
 	 */
-	public Object getValue(Column column);
+	
 	/**
 	 * Retourne la valeur de ce point normalisee pour la colonne en parametre.
 	 *import interfaces.IValueNormalizer;
@@ -21,5 +21,6 @@ public interface IPoint {
 	 */
 
 	public double getNormalizedValue(Column xcol);
+	public Object getValue(String name);
 	
 }

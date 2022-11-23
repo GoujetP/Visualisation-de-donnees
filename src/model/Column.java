@@ -5,13 +5,14 @@ public abstract class Column implements  IValueNormalizer {
 	private String name;
 	protected DataSet dataset;
 	
-	public Column(String name) {
+	public Column(String name,DataSet ds) {
 		this.name = name;
+		this.dataset=ds;
 	}
 	
 	public double getNormalizedValue(IPoint point) {
 		try {
-			return normalize((Object) point.getValue(this));
+			return normalize((Object) point.getValue(this.name));
 		} catch (NotNormalizable e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,7 +1,9 @@
 package model;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,11 +14,11 @@ public class DataSet implements IDataset {
 	private List<IPoint> datas;
 	private List<Column> columns;
 	
-	public DataSet(String title, List<IPoint> datas, List<Column> columns) {
+	public DataSet(String title, List<IPoint> datas) {
 		super();
 		this.title = title;
 		this.datas = datas;
-		this.columns = columns;
+		this.columns = listColumns();
 	}
 
 	@Override
@@ -55,6 +57,24 @@ public class DataSet implements IDataset {
 			this.datas.add(p);
 		}
 		
+	}
+	
+	public List<Column> listColumns(){
+		Field[] fields = this.datas.get(0).getClass().getDeclaredFields();
+		List<Column> res = new ArrayList<Column>();
+		for (Field f : fields) {
+			
+			if (f.getType().getName().equals("double")||f.getType().getName().equals("int")){
+				res.add(new NumericColumn(f.getName(),this));
+			}
+			else if (f.getType().getName().equals("String") || (f.getType().getName().equals("char"))) {
+				res.add(new StringColumn(f.getName(), this));
+			}
+			else if (f.getType().getName().equals("boolean")) {
+				res.add(new BooleanColumn(f.getName(), this));
+			}
+		}
+		return res;
 	}
 
 	

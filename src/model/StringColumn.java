@@ -2,8 +2,8 @@ package model;
 
 public class StringColumn extends Column {
 
-	public StringColumn(String name) {
-		super(name);
+	public StringColumn(String name,DataSet ds) {
+		super(name,ds);
 	}
 
 	@Override
