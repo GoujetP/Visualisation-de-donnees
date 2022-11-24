@@ -21,16 +21,12 @@ public class VincentLagaffe implements IPoint {
 	// Constructor
 
 	// Methods
-	@Override
-	public Object getValue(Column column) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	@Override
 	public double getNormalizedValue(Column xcol) {
 		// TODO Auto-generated method stub
-		return 0;
+		return xcol.getNormalizedValue(this);
 	}
 
 	@Override
@@ -42,7 +38,17 @@ public class VincentLagaffe implements IPoint {
 	@Override
 	public Object getValue(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		if(name.equals("entier")) {
+			return this.entier;
+		} else if(name.equals("flottant")) {
+			return this.flottant;
+		}else if(name.equals("chaine")) {
+			return this.chaine;
+		}else if(name.equals("bool")) {
+			return this.bool;
+		} else {
+			return null;
+		}
 	}
 
 }

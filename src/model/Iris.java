@@ -59,8 +59,8 @@ public class Iris implements IPoint{
 			return this.variety;
 		} else {
 			return null;
-		}
-		/*switch(col.getName()) {
+		}/*
+		switch(name) {
 		case "sepal.width" :
 			return this.sepalWidth;
 		case "sepal.length" : 
