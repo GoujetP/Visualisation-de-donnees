@@ -18,7 +18,7 @@ public class MethodKnn implements IClassificator {
 		this.ds = ds;
 		this.d = distance;
 	}
-	
+		
 	// Methods
 	
 	
