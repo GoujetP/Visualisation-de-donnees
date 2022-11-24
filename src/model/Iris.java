@@ -47,33 +47,20 @@ public class Iris implements IPoint{
 	
 	@Override
 	public Object getValue(String name) {
-		if(name.equals("sepalWidth")) {
-			return this.sepalWidth;
-		} else if(name.equals("sepalLength")) {
-			return this.sepalLength;
-		}else if(name.equals("petalWidth")) {
-			return this.petalWidth;
-		}else if(name.equals("petalLength")) {
-			return this.petalLength;
-		}else if(name.equals("variety")) {
-			return this.variety;
-		} else {
-			return null;
-		}/*
 		switch(name) {
-		case "sepal.width" :
+		case "sepalWidth" :
 			return this.sepalWidth;
-		case "sepal.length" : 
+		case "sepalLength" : 
 			return this.sepalLength;
-		case "petal.width" :
+		case "petalWidth" :
 			return this.petalWidth;
-		case "petal.length" : 
+		case "petalLength" : 
 			return this.petalLength;
 		case "variety" :
 			return this.variety;
 		default :
 			return null;
-		}*/
+		}
 	}
 	
 	@Override

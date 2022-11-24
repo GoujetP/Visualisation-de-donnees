@@ -32,9 +32,8 @@ public class MethodKnn implements IClassificator {
 		for (IPoint pt : ds.getList()) {
 			if (!pt.equals(p)) {
 				point.add(pt);
-				Dpoint.put(pt, d.distance(p, pt));
-				
-			}	
+				Dpoint.put(pt, d.distance(p, pt));	
+			}
 		}
 		IPoint temp = p;
 		double min = 100000000;
@@ -58,7 +57,7 @@ public class MethodKnn implements IClassificator {
 	
 	@Override
 	public double robustness(int k, String fileName) {
-		// TODO Auto-generated method stub
+		//TODO robustesse !!! 
 		return 0;
 	}
 }
