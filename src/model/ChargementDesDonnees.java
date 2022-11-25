@@ -49,7 +49,7 @@ public class ChargementDesDonnees {
 //		}
 //	}
 	
-	public void charger(String fileName, Class<IPoint> d) {
+	public void charger(String fileName, Class<? extends IPoint> d) {
 		
 		try {
 			chargerReader(Files.newBufferedReader(Paths.get("data/" + fileName)), d);

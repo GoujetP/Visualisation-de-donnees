@@ -1,5 +1,14 @@
 package view;
 
+import static org.junit.Assert.assertArrayEquals;
+
+import java.io.IOException;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -11,9 +20,16 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.ChargementDesDonnees;
+import model.Column;
+import model.DataSet;
+import model.IPoint;
+import model.Iris;
+import model.NumericColumn;
 import utils.Observer;
 import utils.Subject;
 
@@ -21,38 +37,40 @@ public class PointView extends Application implements Observer {
 	
 	
 	 
-	 
-	
+		protected DataSet ds;
+		protected List<IPoint> listPoint;
 	 
 	    @Override public void start(Stage stage) {
-	        stage.setTitle("Scatter Chart Sample");
-	        final NumberAxis xAxis = new NumberAxis(0, 10, 1);
-	        final NumberAxis yAxis = new NumberAxis(-100, 500, 100);        
-	        final ScatterChart<Number,Number> sc = 
-	            new ScatterChart<Number,Number>(xAxis,yAxis);
-	        xAxis.setLabel("Age (years)");                
-	        yAxis.setLabel("Returns to date");
-	        sc.setTitle("Investment Overview");
+	    	try {
+				this.listPoint= new ChargementDesDonnees().chargerReader( Files.newBufferedReader(Paths.get("data\\iris.csv")), Iris.class);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	this.ds=new DataSet("Iris", listPoint);
+	        stage.setTitle("Classification de données");
+	        List<NumericColumn> numCol = new ArrayList<NumericColumn>();
+	        for (Column c : ds.getColumns()) {
+	        	if (c.getClass().equals(NumericColumn.class)) {
+	        		numCol.add((NumericColumn) c);
+	        	}
+	        }
+	        NumberAxis xAxis = new NumberAxis(0,1, 0.01);
+	        NumberAxis yAxis = new NumberAxis( 0,1, 0.01);        
+	        ScatterChart<Number,Number> sc = new ScatterChart<Number,Number>(xAxis,yAxis);
+	        xAxis.setLabel( numCol.get(0).getName());                
+	        yAxis.setLabel( numCol.get(1).getName());
+	        sc.setTitle("Iris");
 	       
 	        XYChart.Series series1 = new XYChart.Series();
 	 
-	        series1.setName("Option 1");
-	        series1.getData().add(new XYChart.Data(4.2, 193.2));
-	        series1.getData().add(new XYChart.Data(2.8, 33.6));
-	        series1.getData().add(new XYChart.Data(6.2, 24.8));
-	        series1.getData().add(new XYChart.Data(1, 14));
-	        series1.getData().add(new XYChart.Data(1.2, 26.4));
-	        series1.getData().add(new XYChart.Data(4.4, 114.4));
-	        series1.getData().add(new XYChart.Data(8.5, 323));
-	        series1.getData().add(new XYChart.Data(6.9, 289.8));
-	        series1.getData().add(new XYChart.Data(9.9, 287.1));
-	        series1.getData().add(new XYChart.Data(0.9, -9));
-	        series1.getData().add(new XYChart.Data(3.2, 150.8));
-	        series1.getData().add(new XYChart.Data(4.8, 20.8));
-	        series1.getData().add(new XYChart.Data(7.3, -42.3));
-	        series1.getData().add(new XYChart.Data(1.8, 81.4));
-	        series1.getData().add(new XYChart.Data(7.3, 110.3));
-	        series1.getData().add(new XYChart.Data(2.7, 41.2));
+	        series1.setName( numCol.get(0).getName() + " || "+ numCol.get(1).getName());
+	        
+	        for (IPoint p : ds.getList()) {
+	        	series1.getData().add(new XYChart.Data( p.getNormalizedValue(numCol.get(0)), p.getNormalizedValue(numCol.get(1))));
+	        }
+	        
+	        
 	                      
 	        sc.setPrefSize(500, 400);
 	        sc.getData().addAll(series1);
@@ -84,8 +102,16 @@ public class PointView extends Application implements Observer {
 	            }
 	        });
 	        hbox.setSpacing(10);
-	        hbox.getChildren().addAll(add, remove);
-	        
+	  
+	        final ComboBox<String> comboBoxX = new ComboBox();
+	        final ComboBox<String> comboBoxY = new ComboBox();
+	        String[] comboName = new String[numCol.size()];
+	        for (int i = 0 ; i<numCol.size() ; i++) {
+	        	comboName[i]=numCol.get(i).getName();
+	        }
+	        comboBoxX.getItems().setAll(comboName);
+        	comboBoxY.getItems().setAll( comboName);
+	        hbox.getChildren().addAll(add, remove,comboBoxX,comboBoxY);
 	        vbox.getChildren().addAll(sc, hbox);
 	        hbox.setPadding(new Insets(10, 10, 10, 50));
 	        
