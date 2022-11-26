@@ -21,14 +21,21 @@ import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.ChargementDesDonnees;
 import model.Column;
+import model.DEuclidienne;
+import model.DManhattan;
 import model.DataSet;
+import model.IDistance;
 import model.IPoint;
 import model.Iris;
+import model.MethodKnn;
 import model.NumericColumn;
 import utils.Observer;
 import utils.Subject;
@@ -39,8 +46,9 @@ public class PointView extends Application implements Observer {
 
 	protected DataSet ds;
 	protected List<IPoint> listPoint;
-
+	protected IDistance d = new DEuclidienne(ds);
 	@Override public void start(Stage stage) {
+
 		try {
 			this.listPoint= new ChargementDesDonnees().chargerReader( Files.newBufferedReader(Paths.get("data\\iris.csv")), Iris.class);
 		} catch (IOException e1) {
@@ -55,42 +63,46 @@ public class PointView extends Application implements Observer {
 				numCol.add((NumericColumn) c);
 			}
 		}
+
 		NumberAxis xAxis = new NumberAxis(0,1, 0.01);
 		NumberAxis yAxis = new NumberAxis( 0,1, 0.01);        
 		ScatterChart<Number,Number> sc = new ScatterChart<Number,Number>(xAxis,yAxis);
 		xAxis.setLabel( numCol.get(0).getName());                
 		yAxis.setLabel( numCol.get(1).getName());
-		sc.setTitle("Iris");
-
+		sc.setTitle(ds.getTitle());
 		XYChart.Series series1 = new XYChart.Series();
-
 		series1.setName( numCol.get(0).getName() + " || "+ numCol.get(1).getName());
-
 		for (IPoint p : ds.getList()) {
 			series1.getData().add(new XYChart.Data( p.getNormalizedValue(numCol.get(0)), p.getNormalizedValue(numCol.get(1))));
 		}
-
-
-
 		sc.setPrefSize(500, 400);
 		sc.getData().addAll(series1);
 		Scene scene  = new Scene(new Group());
 		final VBox vbox = new VBox();
 		final HBox hbox = new HBox();
-
 		final Button add = new Button("Add Series");
-
 		final Button remove = new Button("Remove Series");
-
+		final Label labelVoisins = new Label("Nombre de voisins :");
+		final Spinner nbVoisins = new Spinner(0,ds.getList().size(),1);
+		final Button submit = new Button("Valider");
 		hbox.setSpacing(10);
 
 		final ComboBox<String> comboBoxX = new ComboBox();
 		final ComboBox<String> comboBoxY = new ComboBox();
+		final ComboBox<String> choixDuPoint = new ComboBox();
+		final ComboBox<String> choixDistance = new ComboBox();
 		comboBoxX.valueProperty().addListener( e -> System.out.println(comboBoxX.getValue()));
 		comboBoxY.valueProperty().addListener( e -> System.out.println(comboBoxY.getValue()));
+		choixDuPoint.valueProperty().addListener( e -> System.out.println(choixDuPoint.getValue()));
+		choixDistance.valueProperty().addListener( e -> System.out.println(choixDuPoint.getValue()));
 		String[] comboName = new String[numCol.size()];
+		String[] comboIPoint = new String[ds.getList().size()];
+
 		for (int i = 0 ; i<numCol.size() ; i++) {
 			comboName[i]=numCol.get(i).getName();
+		}
+		for (int i = 0 ; i<ds.getList().size() ; i++)  {
+			comboIPoint[i]=ds.getList().get(i).toString();
 		}
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
@@ -120,9 +132,51 @@ public class PointView extends Application implements Observer {
 					sc.getData().remove(sc.getData().size()-1);
 			}
 		});
+		submit.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				if  (choixDistance.getValue()!=null && nbVoisins.getValue()!=null && choixDuPoint!=null) {
+					
+					if(choixDistance.getValue().equals("Euclidienne")) {
+						d=new DEuclidienne(ds);
+					}
+					else {
+						d=new DManhattan(ds);
+					}
+					
+					MethodKnn m = new MethodKnn(ds,d);
+					IPoint point = ds.getList().get(0);
+					for (IPoint p : ds.getList()) {
+						if (p.toString().equals(choixDuPoint.getValue())) {
+							point=p;
+						}
+					}
+					if (comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
+						NumericColumn x = numCol.get(0);
+						NumericColumn y = numCol.get(1);
+						for (NumericColumn c : numCol) {
+							if (c.getName().equals(comboBoxX.getValue())) x = c;
+							if (c.getName().equals(comboBoxY.getValue())) y = c;
+						}
+
+						XYChart.Series series = new XYChart.Series();
+						series.setName(nbVoisins.getValue()+" Distance "+choixDistance.getValue());
+						System.out.println(m.getNeighbours((int) nbVoisins.getValue(), point));
+						for (IPoint p : m.getNeighbours((int) nbVoisins.getValue(), point)) {
+							series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
+						}
+						series.getData().add(new XYChart.Data( point.getNormalizedValue(x), point.getNormalizedValue(y)));
+						sc.getData().add(series);
+						
+					} 
+				}
+			}
+		});
+
 		comboBoxX.getItems().setAll(comboName);
 		comboBoxY.getItems().setAll( comboName);
-		hbox.getChildren().addAll(add, remove,comboBoxX,comboBoxY);
+		choixDuPoint.getItems().setAll(comboIPoint);
+		choixDistance.getItems().setAll("Euclidienne","Manhattan");
+		hbox.getChildren().addAll(add, remove,comboBoxX,comboBoxY,choixDuPoint,labelVoisins,nbVoisins ,choixDistance, submit);
 		vbox.getChildren().addAll(sc, hbox);
 		hbox.setPadding(new Insets(10, 10, 10, 50));
 
