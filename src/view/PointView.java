@@ -1,9 +1,6 @@
 package view;
 
-import static org.junit.Assert.assertArrayEquals;
-
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;

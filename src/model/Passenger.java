@@ -47,23 +47,6 @@ public class Passenger implements IPoint{
 		this.embarked = embarked;
 	}
 
-	public Passenger(int passengerId, int survived, int pclass, String name, String sex, int age, int sibSp, int parch,
-			String ticket, double fare, String cabin) {
-		super();
-		this.passengerId = passengerId;
-		this.survived = survived;
-		this.pClass = pclass;
-		this.name = name;
-		this.sex = sex;
-		this.age = age;
-		this.sibSp = sibSp;
-		this.parch = parch;
-		this.ticket = ticket;
-		this.fare = fare;
-		this.cabin = cabin;
-		this.embarked = null;
-	}
-
 	@Override
 	public String toString() {
 		return "Passenger [Name=" + name + ", Embarked=" + embarked + "]";

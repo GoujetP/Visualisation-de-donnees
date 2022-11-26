@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import com.opencsv.bean.CsvBindByName;
 
 public class Iris implements IPoint{
@@ -67,7 +69,4 @@ public class Iris implements IPoint{
 	public double getNormalizedValue(Column xcol) {
 		return xcol.getNormalizedValue(this);
 	}
-
-	
-
 }
