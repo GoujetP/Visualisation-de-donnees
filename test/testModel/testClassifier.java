@@ -38,7 +38,8 @@ public class testClassifier {
 	@Test 
 	public void testIrisClassifer() {
 		MethodKnn knn = new MethodKnn(ds,new DManhattan(ds));
-		String res = knn.classifier(3,i4,"variety");
-		assertEquals(" setosa tulipe setosa", res);
+		String choix = "variety";
+		String res = knn.classifier(3,i4,choix);
+		assertEquals("setosa tulipe setosa ", res);
 	}	
 }

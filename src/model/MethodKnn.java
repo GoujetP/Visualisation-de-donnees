@@ -1,9 +1,12 @@
 package model;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import testModel.VincentLagaffe;
 
 public class MethodKnn implements IClassificator {
 	
@@ -59,7 +62,7 @@ public class MethodKnn implements IClassificator {
 		List<IPoint> list = getNeighbours(k, p);
 		String res = "" ;
 		for(IPoint point : list) {
-			res += " " + point.getValue(choix) ;
+			res += point.getValue(choix) + " " ;
 		}
 		return res;
 	}
@@ -91,10 +94,54 @@ public class MethodKnn implements IClassificator {
 	*/
 	
 	@Override
-	public double robustness(int k, String fileName) {
-		// On divise le fileName en 5 parties : 4 d'apprentissage et 1 de test
-		// Pour la partie test on cache une donnée et on la devine avec les k voisins
-		// on stocke les données et on les compare avec les bonnes valeurs, le rapport sera la robustesse
+	public double robustness(int k, String fileName, IPoint p) {
+		String choix = "variety";
+		//Nombre de division de la validation croisée
+		int nbSplit = 5;
+		int cpt = 0;
+		// On divise le fileName en 5 listes 
+		
+		List<IPoint> liste = new ChargementDesDonnees().chargerReader(new StringReader(fileName) , p.getClass());
+		List<List<IPoint>> bigListe = new ArrayList<List<IPoint>>();  
+		int total = liste.size();
+		int split = total / nbSplit;
+		List<IPoint> liste1 = liste.subList(0, split-1);
+		List<IPoint> liste2 = liste.subList(split, 2*split-1);
+		List<IPoint> liste3 = liste.subList(2*split, 3*split-1);
+		List<IPoint> liste4 = liste.subList(3*split, 4*split-1);
+		List<IPoint> liste5 = liste.subList(4*split, 5*split-1);
+		bigListe.add(liste1);bigListe.add(liste2);bigListe.add(liste3);bigListe.add(liste4);bigListe.add(liste5);
+		
+		//Test
+		bigListe.remove(liste1);
+		for(IPoint p1 : liste1) {
+			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		}
+		bigListe.add(liste1);
+		
+		bigListe.remove(liste2);
+		for(IPoint p1 : liste2) {
+			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		}
+		bigListe.add(liste2);
+		
+		bigListe.remove(liste3);
+		for(IPoint p1 : liste3) {
+			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		}
+		bigListe.add(liste3);
+		
+		bigListe.remove(liste4);
+		for(IPoint p1 : liste4) {
+			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		}
+		bigListe.add(liste4);
+		
+		bigListe.remove(liste5);
+		for(IPoint p1 : liste5) {
+			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		}
+		bigListe.add(liste5);
 		
 		return 0;
 	}
