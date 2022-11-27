@@ -9,22 +9,22 @@ import java.util.Map;
 import testModel.VincentLagaffe;
 
 public class MethodKnn implements IClassificator {
-	
+
 	// Class Attributes
 	private DataSet ds;
 	private IDistance d;
-	
+
 	// Constructor
 	public MethodKnn() {}
-	
+
 	public MethodKnn(DataSet ds, IDistance distance) {
 		this.ds = ds;
 		this.d = distance;
 	}
-		
+
 	// Methods
-	
-	
+
+
 	@Override
 	public List<IPoint> getNeighbours(int k, IPoint p) {
 		// TODO Auto-generated method stub
@@ -57,42 +57,40 @@ public class MethodKnn implements IClassificator {
 		}
 		return res;
 	}
-	
+
 	public String classifier(int k, IPoint p, String choix) {
 		List<IPoint> list = getNeighbours(k, p);
 		String res = "" ;
 		for(IPoint point : list) {
 			res += point.getValue(choix) + " " ;
 		}
+		res = occurenceMax(res);
 		return res;
 	}
 
-	/*
+
 	public String occurenceMax(String line) {
-		String[] res = line.split(line);
-		int[] count = new int[100];
-		String tmp ="";
-		for(int i = 0 ; i < res.length ; i++) {
-			for(int j = 0 ; j < res.length ; j++) {
-				tmp = res[i];
-				if(tmp == res[j]) {
-					count[i] ++;
-				}
+		String[] tab = line.split(" ");
+		int cpt;
+		int maxCpt=0;
+		String variety ="";
+		for(int i = 0 ; i <tab.length ; i++){
+			cpt = 0;
+			System.out.println(tab[i]);
+			for (int j = i ; j < tab.length ; j++){
+				if (tab[i].equals(tab[j])){
+					cpt++;
+					System.out.println(cpt);
+				} 
+			}
+			if (cpt>=maxCpt){
+				maxCpt=cpt;
+				cpt = 0;
+				variety=tab[i];
 			}
 		}
-		int indice = nombreMax(count);	
-		return res[indice];
+		return variety;
 	}
-	
-	public int nombreMax(int[] tab) {
-		int tmp = 0;
-		for(int i = 0 ; i < tab.length ; i++) {
-			if(tab[i] > tmp) tmp = tab[i];
-		}
-		return tmp;
-	}
-	*/
-	
 	@Override
 	public double robustness(int k, String fileName, IPoint p) {
 		String choix = "variety";
@@ -100,7 +98,7 @@ public class MethodKnn implements IClassificator {
 		int nbSplit = 5;
 		int cpt = 0;
 		// On divise le fileName en 5 listes 
-		
+
 		List<IPoint> liste = new ChargementDesDonnees().chargerReader(new StringReader(fileName) , p.getClass());
 		List<List<IPoint>> bigListe = new ArrayList<List<IPoint>>();  
 		int total = liste.size();
@@ -111,38 +109,38 @@ public class MethodKnn implements IClassificator {
 		List<IPoint> liste4 = liste.subList(3*split, 4*split-1);
 		List<IPoint> liste5 = liste.subList(4*split, 5*split-1);
 		bigListe.add(liste1);bigListe.add(liste2);bigListe.add(liste3);bigListe.add(liste4);bigListe.add(liste5);
-		
+
 		//Test
 		bigListe.remove(liste1);
 		for(IPoint p1 : liste1) {
 			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
 		}
 		bigListe.add(liste1);
-		
+
 		bigListe.remove(liste2);
 		for(IPoint p1 : liste2) {
 			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
 		}
 		bigListe.add(liste2);
-		
+
 		bigListe.remove(liste3);
 		for(IPoint p1 : liste3) {
 			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
 		}
 		bigListe.add(liste3);
-		
+
 		bigListe.remove(liste4);
 		for(IPoint p1 : liste4) {
 			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
 		}
 		bigListe.add(liste4);
-		
+
 		bigListe.remove(liste5);
 		for(IPoint p1 : liste5) {
 			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
 		}
 		bigListe.add(liste5);
-		
+
 		return 0;
 	}
 }
