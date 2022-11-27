@@ -49,13 +49,14 @@ public class ChargementDesDonnees {
 //		}
 //	}
 	
-	public void charger(String fileName, Class<IPoint> d) {
+	public List<IPoint> charger(String fileName, Class<? extends IPoint> d) {
 		
 		try {
-			chargerReader(Files.newBufferedReader(Paths.get("data/" + fileName)), d);
+			return chargerReader(Files.newBufferedReader(Paths.get("data/" + fileName)), d);
 		} catch (IllegalStateException | IOException e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 		
 	}
 	

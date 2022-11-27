@@ -2,6 +2,8 @@ package model;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,11 +95,12 @@ public class MethodKnn implements IClassificator {
 	public double robustness(int k, String fileName, IPoint p) {
 		String choix = "variety";
 		//Nombre de division de la validation croisée
-		int nbSplit = 3;
+		int nbSplit = 5;
 		int cpt = 0;
 		int cptTotal = 0;
 		// On divise le fileName en 5 listes 
 		List<IPoint> liste = new ChargementDesDonnees().chargerReader(new StringReader(fileName) , p.getClass());
+		Collections.shuffle(liste);
 		List<IPoint> listedata = liste;
 		List<IPoint> listeTest = new ArrayList<IPoint>(); 
 		int total = liste.size();
@@ -113,66 +116,81 @@ public class MethodKnn implements IClassificator {
 		
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
 		
 		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
 			listeTest.add(listedata.get(i));
 			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
 		}
 		
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
 
 		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
 			listeTest.add(listedata.get(i));
 			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
 		}
 		
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
 		
 		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
 			listeTest.add(listedata.get(i));
 			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
 		}
 		
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
 		
 		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
 			listeTest.add(listedata.get(i));
 			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
 		}
 		
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
 	
 		return (cpt/cptTotal*100);
 	}
 	
-	public double robustness2(int k, List<IPoint> l) {
+	/*public double robustness2(int k, List<IPoint> l) {
 		String choix = "variety";
 		//Nombre de division de la validation croisée
 		int nbSplit = 3;
@@ -256,8 +274,9 @@ public class MethodKnn implements IClassificator {
 			if(res == pTest.getValue(choix)) cpt++;
 			cptTotal++;
 		}
-		*/
+		
 		System.out.println("Cpt =" + cpt +" et cptTotal ="  + cptTotal);
 		return (cpt/cptTotal*100);
 	}
+*/
 }
