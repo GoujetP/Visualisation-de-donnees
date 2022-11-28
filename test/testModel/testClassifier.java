@@ -40,6 +40,6 @@ public class testClassifier {
 		MethodKnn knn = new MethodKnn(ds,new DManhattan(ds));
 		String choix = "variety";
 		String res = knn.classifier(3,i4,choix);
-		assertEquals("setosa tulipe setosa ", res);
+		assertEquals("setosa", res);
 	}	
 }

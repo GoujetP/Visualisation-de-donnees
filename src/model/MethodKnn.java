@@ -2,32 +2,31 @@ package model;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import testModel.VincentLagaffe;
-
 public class MethodKnn implements IClassificator {
-	
+
 	// Class Attributes
 	private DataSet ds;
 	private IDistance d;
-	
+
 	// Constructor
 	public MethodKnn() {}
-	
+
 	public MethodKnn(DataSet ds, IDistance distance) {
 		this.ds = ds;
 		this.d = distance;
 	}
-		
+
 	// Methods
-	
-	
+
+
 	@Override
 	public List<IPoint> getNeighbours(int k, IPoint p) {
-		// TODO Auto-generated method stub
 		List<IPoint> res = new ArrayList<IPoint>();
 		Map<IPoint,Double> Dpoint = new HashMap<IPoint,Double>();
 		List<IPoint> point = new ArrayList<IPoint>();
@@ -57,41 +56,40 @@ public class MethodKnn implements IClassificator {
 		}
 		return res;
 	}
-	
+
 	public String classifier(int k, IPoint p, String choix) {
 		List<IPoint> list = getNeighbours(k, p);
 		String res = "" ;
 		for(IPoint point : list) {
 			res += point.getValue(choix) + " " ;
 		}
+		res = occurenceMax(res);
 		return res;
 	}
 
-	/*
+
 	public String occurenceMax(String line) {
-		String[] res = line.split(line);
-		int[] count = new int[100];
-		String tmp ="";
-		for(int i = 0 ; i < res.length ; i++) {
-			for(int j = 0 ; j < res.length ; j++) {
-				tmp = res[i];
-				if(tmp == res[j]) {
-					count[i] ++;
-				}
+		String[] tab = line.split(" ");
+		int cpt;
+		int maxCpt=0;
+		String variety ="";
+		for(int i = 0 ; i <tab.length ; i++){
+			cpt = 0;
+			//System.out.println(tab[i]);
+			for (int j = i ; j < tab.length ; j++){
+				if (tab[i].equals(tab[j])){
+					cpt++;
+					//System.out.println(cpt);
+				} 
+			}
+			if (cpt>=maxCpt){
+				maxCpt=cpt;
+				cpt = 0;
+				variety=tab[i];
 			}
 		}
-		int indice = nombreMax(count);	
-		return res[indice];
+		return variety;
 	}
-	
-	public int nombreMax(int[] tab) {
-		int tmp = 0;
-		for(int i = 0 ; i < tab.length ; i++) {
-			if(tab[i] > tmp) tmp = tab[i];
-		}
-		return tmp;
-	}
-	*/
 	
 	@Override
 	public double robustness(int k, String fileName, IPoint p) {
@@ -99,50 +97,186 @@ public class MethodKnn implements IClassificator {
 		//Nombre de division de la validation croisée
 		int nbSplit = 5;
 		int cpt = 0;
+		int cptTotal = 0;
 		// On divise le fileName en 5 listes 
-		
 		List<IPoint> liste = new ChargementDesDonnees().chargerReader(new StringReader(fileName) , p.getClass());
-		List<List<IPoint>> bigListe = new ArrayList<List<IPoint>>();  
+		Collections.shuffle(liste);
+		List<IPoint> listedata = liste;
+		List<IPoint> listeTest = new ArrayList<IPoint>(); 
 		int total = liste.size();
 		int split = total / nbSplit;
-		List<IPoint> liste1 = liste.subList(0, split-1);
-		List<IPoint> liste2 = liste.subList(split, 2*split-1);
-		List<IPoint> liste3 = liste.subList(2*split, 3*split-1);
-		List<IPoint> liste4 = liste.subList(3*split, 4*split-1);
-		List<IPoint> liste5 = liste.subList(4*split, 5*split-1);
-		bigListe.add(liste1);bigListe.add(liste2);bigListe.add(liste3);bigListe.add(liste4);bigListe.add(liste5);
 		
-		//Test
-		bigListe.remove(liste1);
-		for(IPoint p1 : liste1) {
-			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		for(int i = 0 ; i < split ; i++) {
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
 		}
-		bigListe.add(liste1);
 		
-		bigListe.remove(liste2);
-		for(IPoint p1 : liste2) {
-			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		DataSet ds1 = new DataSet("ds1", listedata);
+		MethodKnn knn = new MethodKnn(ds1, new DManhattan(ds1));
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
+			cptTotal++;
 		}
-		bigListe.add(liste2);
 		
-		bigListe.remove(liste3);
-		for(IPoint p1 : liste3) {
-			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
 		}
-		bigListe.add(liste3);
 		
-		bigListe.remove(liste4);
-		for(IPoint p1 : liste4) {
-			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
+			cptTotal++;
 		}
-		bigListe.add(liste4);
-		
-		bigListe.remove(liste5);
-		for(IPoint p1 : liste5) {
-			if(classifier(3,p1,choix) == p1.getValue(choix)) cpt++;
+
+		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
 		}
-		bigListe.add(liste5);
 		
-		return 0;
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
+			cptTotal++;
+		}
+		
+		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
+		}
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
+			cptTotal++;
+		}
+		
+		for(int i = 0 ; i < split ; i++) {
+			listedata.add(listeTest.get(i));
+			listeTest.remove(i);
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
+		}
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("1) Variété réelle :  " + goodRes);
+			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			if(res.equals(goodRes)) cpt++;
+			cptTotal++;
+		}
+	
+		return (cpt/cptTotal*100);
 	}
+	
+	/*public double robustness2(int k, List<IPoint> l) {
+		String choix = "variety";
+		//Nombre de division de la validation croisée
+		int nbSplit = 3;
+		int cpt = 0;
+		int cptTotal = 0;
+		// On divise le fileName en 5 listes 
+		List<IPoint> liste = l;
+		List<IPoint> listedata = liste;
+		List<IPoint> listeTest = new ArrayList<IPoint>(); 
+		int total = liste.size();
+		int split = total / nbSplit;
+		
+		for(int i = 0 ; i < split ; i++) {
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
+		}
+		
+		DataSet ds1 = new DataSet("ds1", listedata);
+		System.out.println(listedata);
+		System.out.println(listeTest);
+		MethodKnn knn = new MethodKnn(ds1, new DManhattan(ds1));
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			String goodRes = (String) pTest.getValue(choix); 
+			System.out.println("resultat de classifier :" + res );
+			if(res.equals(goodRes)) cpt++;
+			System.out.println(goodRes + ": vrai resultat ");
+			cptTotal++;
+		}
+		/*
+		for(int i = 0 ; i < split ; i++) {
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
+			listedata.add(listeTest.get(i));
+			listeTest.get(i);
+		}
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			if(res == pTest.getValue(choix)) cpt++;
+			cptTotal++;
+		}
+
+		for(int i = 0 ; i < split ; i++) {
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
+			listedata.add(listeTest.get(i));
+			listeTest.get(i);
+		}
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			if(res == pTest.getValue(choix)) cpt++;
+			cptTotal++;
+		}
+		
+		for(int i = 0 ; i < split ; i++) {
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
+			listedata.add(listeTest.get(i));
+			listeTest.get(i);
+		}
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			if(res == pTest.getValue(choix)) cpt++;
+			cptTotal++;
+		}
+		
+		for(int i = 0 ; i < split ; i++) {
+			listeTest.add(listedata.get(i));
+			listedata.remove(i);
+			listedata.add(listeTest.get(i));
+			listeTest.get(i);
+		}
+		
+		for(IPoint pTest : listeTest) {
+			String res = knn.classifier(k, pTest, choix);
+			System.out.println("res" + res + "doit etre " + pTest.getValue(choix));
+			if(res == pTest.getValue(choix)) cpt++;
+			cptTotal++;
+		}
+		
+		System.out.println("Cpt =" + cpt +" et cptTotal ="  + cptTotal);
+		return (cpt/cptTotal*100);
+	}
+*/
 }

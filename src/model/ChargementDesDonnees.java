@@ -48,8 +48,9 @@ public class ChargementDesDonnees {
 //			return new ArrayList<IPoint>();
 //		}
 //	}
-	
-	public List<IPoint> charger(String fileName, Class<IPoint> d) {
+
+
+	public List<IPoint> charger(String fileName, Class<? extends IPoint> d) {
 		
 		try {
 			return chargerReader(Files.newBufferedReader(Paths.get("data/" + fileName)), d);
