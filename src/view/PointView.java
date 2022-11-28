@@ -107,6 +107,7 @@ public class PointView extends Application implements Observer {
 		final Label labelVoisins = new Label("Nombre de voisins :");
 		final Spinner nbVoisins = new Spinner(0,ds.getList().size(),1);
 		final Button submit = new Button("Valider");
+		final Button addIpoint = new Button("Ajouter un nouveau point");
 		
 		hbox.setSpacing(10);
 		
@@ -209,13 +210,24 @@ public class PointView extends Application implements Observer {
 				}
 			}
 		});
+		addIpoint.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				addIPoint a = new addIPoint(filename, ds);
+				try {
+					a.start(new Stage());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 		comboBoxX.getItems().setAll(comboName);
 		comboBoxY.getItems().setAll( comboName);
 		choixDuPoint.getItems().setAll(comboIPoint);
 		choixDistance.getItems().setAll("Euclidienne","Manhattan");
 		
-		kNN.getChildren().addAll(choixDuPoint,labelVoisins,nbVoisins ,choixDistance, submit);
+		kNN.getChildren().addAll(addIpoint,choixDuPoint,labelVoisins,nbVoisins ,choixDistance, submit);
 		kNN.setMargin(choixDistance, new Insets(5,5,5,0));
 		hbox2.getChildren().addAll(add, remove,comboBoxX,comboBoxY);
 		hbox.getChildren().addAll(hbox2,vbox2,kNN);

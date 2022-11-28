@@ -56,43 +56,33 @@ public class Passenger implements IPoint{
 	public Object getValue(String line) {
 		switch (line) {
 		case "passengerId" : 
-			System.out.println("la");
+			
 			return passengerId;
 		case "survived" : 
-			System.out.println("la");
+			
 			return survived;
 		case "pClass" : 
-			System.out.println("la");
+			
 			return pClass;
 		case "name" :
-			System.out.println("la");
 			return name;
 		case "sex" : 
-			System.out.println("la");
 			return sex;
 		case "age" : 
-			System.out.println("la");
 			return age;
 		case "sibSp" : 
-			System.out.println("la");
 			return sibSp;
 		case "parch" : 
-			System.out.println("la");
 			return parch;
 		case "ticket" :
-			System.out.println("la");
 			return ticket;
 		case "fare" : 
-			System.out.println("la");
 			return fare;
 		case "cabin" : 
-			System.out.println("la");
 			return cabin;
 		case "embarked" : 
-			System.out.println("la");
 			return embarked;
 		default : 
-			System.out.println(this.passengerId + " : " + line);
 			return null;
 		}
 		
