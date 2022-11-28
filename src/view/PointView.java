@@ -74,14 +74,12 @@ public class PointView extends Application implements Observer {
 		this.ds=new DataSet(filename, listPoint);
 		stage.setTitle("Classification de données");
 		List<NumericColumn> numCol = new ArrayList<NumericColumn>();
-		List<BooleanColumn> boolCol = new ArrayList<BooleanColumn>();
+		//List<BooleanColumn> boolCol = new ArrayList<BooleanColumn>();
 		for (Column c : ds.getColumns()) {
 			if (c.getClass().equals(NumericColumn.class)) {
 				numCol.add((NumericColumn) c);
 			}
-			else if (c.getClass().equals(Boolean.class)){
-				boolCol.add((BooleanColumn)c);
-			}
+			
 		}
 
 

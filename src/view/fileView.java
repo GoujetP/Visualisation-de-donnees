@@ -16,16 +16,7 @@ public class fileView extends Application {
 	
 	
 	
-	public fileView() {
-		super();
-		try {
-			this.start(new Stage());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// TODO Auto-generated constructor stub
-	}
+	
 
 	@Override
 	public void start(Stage stage) throws Exception {

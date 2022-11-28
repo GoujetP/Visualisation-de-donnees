@@ -5,21 +5,21 @@ import com.opencsv.bean.CsvBindByName;
 public class Passenger implements IPoint{
 
 	@CsvBindByName(column = "PassengerId")
-	private int passengerId;
+	private double passengerId;
 	@CsvBindByName(column = "Survived")
-	private int survived;
+	private double survived;
 	@CsvBindByName(column = "Pclass")
-	private int pClass;
+	private double pClass;
 	@CsvBindByName(column = "Name")
 	private String name;
 	@CsvBindByName(column = "Sex")
 	private String sex;
 	@CsvBindByName(column = "Age")
-	private int age;
+	private double age;
 	@CsvBindByName(column = "SibSp")
-	private int sibSp;
+	private double sibSp;
 	@CsvBindByName(column = "Parch")
-	private int parch;
+	private double parch;
 	@CsvBindByName(column = "Ticket")
 	private String ticket;
 	@CsvBindByName(column = "Fare")
@@ -29,7 +29,7 @@ public class Passenger implements IPoint{
 	@CsvBindByName(column = "Embarked")
 	private char embarked;
 
-
+	public Passenger() {}
 	public Passenger(int passengerId, int survived, int pclass, String name, String sex, int age, int sibSp, int parch,
 			String ticket, double fare, String cabin, char embarked) {
 		super();
@@ -55,32 +55,47 @@ public class Passenger implements IPoint{
 	@Override
 	public Object getValue(String line) {
 		switch (line) {
-		case "PassengerId" : 
+		case "passengerId" : 
+			System.out.println("la");
 			return passengerId;
-		case "Survived" : 
+		case "survived" : 
+			System.out.println("la");
 			return survived;
-		case "Pclass" : 
+		case "pClass" : 
+			System.out.println("la");
 			return pClass;
-		case "Name" :
+		case "name" :
+			System.out.println("la");
 			return name;
-		case "Sex" : 
+		case "sex" : 
+			System.out.println("la");
 			return sex;
-		case "Age" : 
+		case "age" : 
+			System.out.println("la");
 			return age;
-		case "SibSp" : 
+		case "sibSp" : 
+			System.out.println("la");
 			return sibSp;
-		case "Parch" : 
+		case "parch" : 
+			System.out.println("la");
 			return parch;
-		case "Ticket" :
+		case "ticket" :
+			System.out.println("la");
 			return ticket;
-		case "Fare" : 
+		case "fare" : 
+			System.out.println("la");
 			return fare;
-		case "Cabin" : 
+		case "cabin" : 
+			System.out.println("la");
 			return cabin;
-		case "Embarked" : 
+		case "embarked" : 
+			System.out.println("la");
 			return embarked;
+		default : 
+			System.out.println(this.passengerId + " : " + line);
+			return null;
 		}
-		return null;
+		
 	}
 
 	@Override
