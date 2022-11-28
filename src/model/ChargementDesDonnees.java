@@ -53,7 +53,7 @@ public class ChargementDesDonnees {
 	public List<IPoint> charger(String fileName, Class<? extends IPoint> d) {
 		
 		try {
-			return chargerReader(Files.newBufferedReader(Paths.get("data/" + fileName)), d);
+			return chargerReader(Files.newBufferedReader(Paths.get("data" + System.getProperty("file.separator") + fileName)), d);
 		} catch (IllegalStateException | IOException e) {
 			System.out.println(e.getMessage());
 			return null;

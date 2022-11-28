@@ -65,14 +65,14 @@ public class PointView extends Application implements Observer {
 		}
 		
 		try {
-			this.listPoint= new ChargementDesDonnees().chargerReader( Files.newBufferedReader(Paths.get("data\\"+filename+".csv")), this.p);
+			this.listPoint= new ChargementDesDonnees().chargerReader( Files.newBufferedReader(Paths.get("data" + System.getProperty("file.separator") +filename+".csv")), this.p);
 			
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		this.ds=new DataSet(filename, listPoint);
-		stage.setTitle("Classification de données");
+		stage.setTitle("Classification de donnï¿½es");
 		List<NumericColumn> numCol = new ArrayList<NumericColumn>();
 		//List<BooleanColumn> boolCol = new ArrayList<BooleanColumn>();
 		for (Column c : ds.getColumns()) {
