@@ -21,8 +21,9 @@ public class testPoint {
 		assertEquals(5.0, p1.getValue("parch"));
 		assertEquals("ticket1", p1.getValue("ticket"));
 		assertEquals(6.7, p1.getValue("fare"));
-		assertEquals("cabin", p1.getValue("cabin"));
+		assertEquals("cabin1", p1.getValue("cabin"));
 		assertEquals('a', p1.getValue("embarked"));
+		assertEquals("Passenger [Name=Jean, Embarked=a]", p1.toString());
 	}
 	
 	@Test

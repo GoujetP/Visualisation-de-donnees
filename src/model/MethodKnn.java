@@ -117,8 +117,8 @@ public class MethodKnn implements IClassificator {
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
 			String goodRes = (String) pTest.getValue(choix); 
-			System.out.println("1) Variété réelle :  " + goodRes);
-			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			//System.out.println("1) Variété réelle :  " + goodRes);
+			//System.out.println("2) Résultat de l'algo avec voisins : " + res );
 			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
@@ -190,93 +190,4 @@ public class MethodKnn implements IClassificator {
 		return (cpt/cptTotal*100);
 	}
 	
-	/*public double robustness2(int k, List<IPoint> l) {
-		String choix = "variety";
-		//Nombre de division de la validation croisée
-		int nbSplit = 3;
-		int cpt = 0;
-		int cptTotal = 0;
-		// On divise le fileName en 5 listes 
-		List<IPoint> liste = l;
-		List<IPoint> listedata = liste;
-		List<IPoint> listeTest = new ArrayList<IPoint>(); 
-		int total = liste.size();
-		int split = total / nbSplit;
-		
-		for(int i = 0 ; i < split ; i++) {
-			listeTest.add(listedata.get(i));
-			listedata.remove(i);
-		}
-		
-		DataSet ds1 = new DataSet("ds1", listedata);
-		System.out.println(listedata);
-		System.out.println(listeTest);
-		MethodKnn knn = new MethodKnn(ds1, new DManhattan(ds1));
-		
-		for(IPoint pTest : listeTest) {
-			String res = knn.classifier(k, pTest, choix);
-			String goodRes = (String) pTest.getValue(choix); 
-			System.out.println("resultat de classifier :" + res );
-			if(res.equals(goodRes)) cpt++;
-			System.out.println(goodRes + ": vrai resultat ");
-			cptTotal++;
-		}
-		/*
-		for(int i = 0 ; i < split ; i++) {
-			listeTest.add(listedata.get(i));
-			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
-		}
-		
-		for(IPoint pTest : listeTest) {
-			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
-			cptTotal++;
-		}
-
-		for(int i = 0 ; i < split ; i++) {
-			listeTest.add(listedata.get(i));
-			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
-		}
-		
-		for(IPoint pTest : listeTest) {
-			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
-			cptTotal++;
-		}
-		
-		for(int i = 0 ; i < split ; i++) {
-			listeTest.add(listedata.get(i));
-			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
-		}
-		
-		for(IPoint pTest : listeTest) {
-			String res = knn.classifier(k, pTest, choix);
-			if(res == pTest.getValue(choix)) cpt++;
-			cptTotal++;
-		}
-		
-		for(int i = 0 ; i < split ; i++) {
-			listeTest.add(listedata.get(i));
-			listedata.remove(i);
-			listedata.add(listeTest.get(i));
-			listeTest.get(i);
-		}
-		
-		for(IPoint pTest : listeTest) {
-			String res = knn.classifier(k, pTest, choix);
-			System.out.println("res" + res + "doit etre " + pTest.getValue(choix));
-			if(res == pTest.getValue(choix)) cpt++;
-			cptTotal++;
-		}
-		
-		System.out.println("Cpt =" + cpt +" et cptTotal ="  + cptTotal);
-		return (cpt/cptTotal*100);
-	}
-*/
 }
