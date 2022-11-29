@@ -16,7 +16,6 @@ public abstract class Column implements  IValueNormalizer {
 		try {
 			return normalize((Object) point.getValue(this.name));
 		} catch (NotNormalizable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
 		}

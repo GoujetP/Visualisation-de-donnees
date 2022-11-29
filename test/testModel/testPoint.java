@@ -11,18 +11,19 @@ public class testPoint {
 	@Test
 	public void testTitanicGetValue() {
 		Passenger p1 = new Passenger(1,2,3,"Jean","homme",18,4,5,"ticket1",6.7,"cabin1",'a');
-		assertEquals(1, p1.getValue("passengerId"));
-		assertEquals(2, p1.getValue("survived"));
-		assertEquals(3, p1.getValue("pClass"));
+		assertEquals(1.0, p1.getValue("passengerId"));
+		assertEquals(2.0, p1.getValue("survived"));
+		assertEquals(3.0, p1.getValue("pClass"));
 		assertEquals("Jean", p1.getValue("name"));
 		assertEquals("homme", p1.getValue("sex"));
-		assertEquals(18, p1.getValue("age"));
-		assertEquals(4, p1.getValue("sibSp"));
-		assertEquals(5, p1.getValue("parch"));
+		assertEquals(18.0, p1.getValue("age"));
+		assertEquals(4.0, p1.getValue("sibSp"));
+		assertEquals(5.0, p1.getValue("parch"));
 		assertEquals("ticket1", p1.getValue("ticket"));
 		assertEquals(6.7, p1.getValue("fare"));
-		assertEquals("cabin", p1.getValue("cabin"));
+		assertEquals("cabin1", p1.getValue("cabin"));
 		assertEquals('a', p1.getValue("embarked"));
+		assertEquals("Passenger [Name=Jean, Embarked=a]", p1.toString());
 	}
 	
 	@Test
