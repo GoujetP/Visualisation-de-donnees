@@ -55,7 +55,7 @@ public class Passenger implements IPoint{
 	@Override
 	public Object getValue(String line) {
 		switch (line) {
-		case "passengerId" : 
+		case "passengerId" : 			
 			return passengerId;
 		case "survived" : 
 			return survived;
@@ -89,8 +89,5 @@ public class Passenger implements IPoint{
 	public double getNormalizedValue(Column xcol) {
 		return xcol.getNormalizedValue(this);
 	}
-
-
-	//--------------------------------------- Test Mohamed --------------------------------------//
 
 }
