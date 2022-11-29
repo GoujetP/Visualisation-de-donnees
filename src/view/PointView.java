@@ -48,12 +48,14 @@ public class PointView extends Application implements Observer {
 	protected IDistance d = new DEuclidienne(ds);
 	protected String filename;
 	protected Class p;
-	
+	protected addIPoint a ;
+
+
 	public PointView(String filename) {
 		super();
 		this.filename=filename;
 		this.start(new Stage());
-		
+
 	}
 
 	@Override public void start(Stage stage) {
@@ -63,23 +65,25 @@ public class PointView extends Application implements Observer {
 		else if (filename.equals("iris")) {
 			p=Iris.class;
 		}
-		
+
 		try {
 			this.listPoint= new ChargementDesDonnees().chargerReader( Files.newBufferedReader(Paths.get("data" + System.getProperty("file.separator") +filename+".csv")), this.p);
-			
+
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		this.ds=new DataSet(filename, listPoint);
-		stage.setTitle("Classification de donnï¿½es");
+		a = new addIPoint(filename,ds);
+		ds.attach(this);
+		stage.setTitle("Classification de données");
 		List<NumericColumn> numCol = new ArrayList<NumericColumn>();
 		//List<BooleanColumn> boolCol = new ArrayList<BooleanColumn>();
 		for (Column c : ds.getColumns()) {
 			if (c.getClass().equals(NumericColumn.class)) {
 				numCol.add((NumericColumn) c);
 			}
-			
+
 		}
 
 
@@ -91,9 +95,11 @@ public class PointView extends Application implements Observer {
 		sc.setTitle(ds.getTitle());
 		XYChart.Series series1 = new XYChart.Series();
 		series1.setName( numCol.get(0).getName() + " || "+ numCol.get(1).getName());
+
 		for (IPoint p : ds.getList()) {
 			series1.getData().add(new XYChart.Data( p.getNormalizedValue(numCol.get(0)), p.getNormalizedValue(numCol.get(1))));
 		}
+
 		sc.setPrefSize(500, 400);
 		sc.getData().addAll(series1);
 		Scene scene  = new Scene(new Group());
@@ -102,15 +108,17 @@ public class PointView extends Application implements Observer {
 		final VBox kNN = new VBox();
 		final VBox vbox2 = new VBox();
 		final HBox hbox2 = new HBox();
+		final HBox hbox3 = new HBox();
 		final Button add = new Button("Add Series");
 		final Button remove = new Button("Remove Series");
 		final Label labelVoisins = new Label("Nombre de voisins :");
 		final Spinner nbVoisins = new Spinner(0,ds.getList().size(),1);
 		final Button submit = new Button("Valider");
-		final Button addIpoint = new Button("Ajouter un nouveau point");
-		
+		final Button saisirIpoint = new Button("Saisir un nouveau point");
+		final Button addIpoint = new Button("Ajouter le nouveau point");
+
 		hbox.setSpacing(10);
-		
+
 		final ComboBox<String> comboBoxX = new ComboBox();
 		final ComboBox<String> comboBoxY = new ComboBox();
 		final ComboBox<String> choixDuPoint = new ComboBox();
@@ -210,24 +218,74 @@ public class PointView extends Application implements Observer {
 				}
 			}
 		});
+		System.out.println(ds.getColumns().get(ds.getColumns().size()-1));
 		addIpoint.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				addIPoint a = new addIPoint(filename, ds);
+
+
 				try {
-					a.start(new Stage());
+
+					if (a!=null && a.point!=null && comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
+						ds.addLine(a.point);
+
+						NumericColumn x = numCol.get(0);
+						NumericColumn y = numCol.get(1);
+						/*BooleanColumn xb =boolCol.get(0);
+							BooleanColumn yb = boolCol.get(1);*/
+						for (NumericColumn c : numCol) {
+							if (c.getName().equals(comboBoxX.getValue())) x = c;
+							if (c.getName().equals(comboBoxY.getValue())) y = c;
+						}
+						/*for (BooleanColumn c : boolCol) {
+								if (c.getName().equals(comboBoxX.getValue())) xb = c;
+								if (c.getName().equals(comboBoxY.getValue())) yb = c;
+							}*/
+
+						XYChart.Series series = new XYChart.Series();
+						series.setName(x.getName() + " || " + y.getName());
+						for (IPoint p : ds.getList()) {
+							if (p==a.point) {
+								series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
+								
+							}
+						}
+						sc.getData().add(series);
+					}
+
+
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+
+
+
 			}
 		});
-		
+		saisirIpoint.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+
+				a = new addIPoint(filename, ds);
+				try {
+					a.start(new Stage());
+
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+
+
+			}
+		});
+
+
 		comboBoxX.getItems().setAll(comboName);
 		comboBoxY.getItems().setAll( comboName);
 		choixDuPoint.getItems().setAll(comboIPoint);
 		choixDistance.getItems().setAll("Euclidienne","Manhattan");
-		
-		kNN.getChildren().addAll(addIpoint,choixDuPoint,labelVoisins,nbVoisins ,choixDistance, submit);
+		hbox3.getChildren().addAll(saisirIpoint,addIpoint);
+		kNN.getChildren().addAll(hbox3,choixDuPoint,labelVoisins,nbVoisins ,choixDistance, submit);
 		kNN.setMargin(choixDistance, new Insets(5,5,5,0));
 		hbox2.getChildren().addAll(add, remove,comboBoxX,comboBoxY);
 		hbox.getChildren().addAll(hbox2,vbox2,kNN);
@@ -243,25 +301,18 @@ public class PointView extends Application implements Observer {
 		launch(args);
 	}
 
-
-
-
-
-
-
-
-
-
 	@Override
 	public void update(Subject subj) {
 		// TODO Auto-generated method stub
-
+		System.out.println(ds.getColumns().get(ds.getColumns().size()-1));
+		a.addPoint(ds);
+		System.out.println(ds.getColumns().get(ds.getColumns().size()-1));
 	}
 
 	@Override
 	public void update(Subject subj, Object data) {
 		// TODO Auto-generated method stub
-
+		update(subj);
 	}
 
 }

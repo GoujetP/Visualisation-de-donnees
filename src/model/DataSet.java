@@ -9,7 +9,9 @@ import java.util.List;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 
-public class DataSet implements IDataset {
+import utils.Subject;
+
+public class DataSet extends Subject implements IDataset  {
 	private String title;
 	private List<IPoint> datas;
 	private List<Column> columns;
