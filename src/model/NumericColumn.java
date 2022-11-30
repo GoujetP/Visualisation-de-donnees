@@ -6,7 +6,7 @@ public class NumericColumn extends Column  {
 	protected Number min;
 
 
-	NumericColumn(String name,DataSet ds) {
+	public NumericColumn(String name,DataSet ds) {
 		super(name,ds);
 		max = getMax();
 		min = getMin();}
@@ -21,8 +21,7 @@ public class NumericColumn extends Column  {
 
 	@Override
 	public Object denormalize(double value) {
-		getMax();
-		return value*(max.doubleValue()-min.doubleValue())+min.doubleValue();
+		return null;
 	}
 
 	@Override
@@ -58,6 +57,14 @@ public class NumericColumn extends Column  {
 			}
 		}
 		return min;
+	}
+	
+	public double getOldMax() {
+		return (double) max;
+	}
+	
+	public double getOldMin() {
+		return (double) min;
 	}
 
 	
