@@ -125,7 +125,7 @@ public class MethodKnn implements IClassificator {
 	//renvoie les éléments de listeTest dans listeData et n element de listeData dans listeTest 
 	public List<List<IPoint>> transverse(List<IPoint> listeData, List<IPoint> listeTest, int n) throws Exception{
 		List<List<IPoint>> listeFinal = new ArrayList<List<IPoint>>();
-		if(n > listeTest.size()) throw new Exception();
+		//if(n > listeTest.size()) throw new Exception();
 		for(int i = 0 ; i < n ; i++) {
 			if(!listeData.isEmpty() && !listeTest.isEmpty()) {
 				IPoint tmp = listeTest.remove(i);

@@ -116,4 +116,10 @@ public class TestKnn {
 		
 		assertEquals(100.0, knn.robustness("variety", ds, new Iris()));
 	}
+	
+	@Test
+	public void testConstructor() {
+		MethodKnn knn = new MethodKnn(ds, new DManhattan(ds));
+		MethodKnn knn2 = new MethodKnn(); 
+	}
 }
