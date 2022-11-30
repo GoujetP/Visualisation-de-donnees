@@ -1,5 +1,6 @@
 package testModel;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +16,11 @@ import model.BooleanColumn;
 import model.Column;
 import model.DataSet;
 import model.IPoint;
+import model.IValueNormalizer.NormalizerTypes;
 import model.Iris;
 import model.NotNormalizable;
+import model.NumericColumn;
+import model.StringColumn;
 
 public class testColumn {
 	protected Iris i1; 
@@ -54,13 +59,23 @@ public class testColumn {
 		Column c = ds.getColumns().get(0);
 		assertEquals(0.0, c.getNormalizedValue(i1));
 		assertEquals(1.0, c.getNormalizedValue(i2));
-		assertEquals(1.0, c.denormalize(0.0));
-		assertEquals(1.5, c.denormalize(1.0));
+		assertEquals(null, c.denormalize(1.0));
 		assertTrue(c.isNormalizable());
+		
+		NumericColumn nc = (NumericColumn) c;
+		nc.update((Object)5.0);
+		assertEquals(5.0, nc.getOldMax());
+		nc.update((Object)(-5.0));
+		assertEquals(-5.0, nc.getOldMin());
+		
 	}
 	
 	@Test
-	public void testStringColumn() {
+	public void testStringColumn()  {
+		StringColumn s1 = new StringColumn("s1", ds);
+		Assertions.assertThrows(NotNormalizable.class, () -> s1.denormalize(0.0));
+		Assertions.assertThrows(NotNormalizable.class, () -> s1.normalize(0.0));
+		assertFalse(s1.isNormalizable());
 	}
 	
 	@Test
@@ -74,7 +89,9 @@ public class testColumn {
 	}
 	
 	@Test
-	public void testEnumColumn() {
+	public void testNormalizerTypes() {
+		assertNotNull(NormalizerTypes.BOOLEAN_NORMALIZER);
 	}
+	
 
 }
