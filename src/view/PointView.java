@@ -133,9 +133,7 @@ public class PointView extends Application implements Observer {
 		for (int i = 0 ; i<numCol.size() ; i++) {
 			comboName[i]=numCol.get(i).getName();
 		}
-		/*for (int i = 0 ; i<boolCol.size() ; i++) {
-			comboName[i]=boolCol.get(i).getName();
-		}*/
+		
 		for (int i = 0 ; i<ds.getList().size() ; i++)  {
 			comboIPoint[i]=ds.getList().get(i).toString();
 		}
@@ -147,17 +145,12 @@ public class PointView extends Application implements Observer {
 				if (comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
 					NumericColumn x = numCol.get(0);
 					NumericColumn y = numCol.get(1);
-					/*BooleanColumn xb =boolCol.get(0);
-					BooleanColumn yb = boolCol.get(1);*/
+					
 					for (NumericColumn c : numCol) {
 						if (c.getName().equals(comboBoxX.getValue())) x = c;
 						if (c.getName().equals(comboBoxY.getValue())) y = c;
 					}
-					/*for (BooleanColumn c : boolCol) {
-						if (c.getName().equals(comboBoxX.getValue())) xb = c;
-						if (c.getName().equals(comboBoxY.getValue())) yb = c;
-					}*/
-
+					
 					XYChart.Series series = new XYChart.Series();
 					series.setName(x.getName() + " || " + y.getName());
 					for (IPoint p : ds.getList()) {
@@ -221,35 +214,51 @@ public class PointView extends Application implements Observer {
 		System.out.println(ds.getColumns().get(ds.getColumns().size()-1));
 		addIpoint.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-
-
+				
+				listPoint.add(a.point);
 				try {
 
 					if (a!=null && a.point!=null && comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
-						ds.addLine(a.point);
-
+						if (sc.getData().size()!=0) {
+							for (int i = 0 ; i<sc.getData().size();i++) {
+								sc.getData().remove(i);
+							}
+						}
+						
 						NumericColumn x = numCol.get(0);
 						NumericColumn y = numCol.get(1);
-						/*BooleanColumn xb =boolCol.get(0);
-							BooleanColumn yb = boolCol.get(1);*/
+						
 						for (NumericColumn c : numCol) {
 							if (c.getName().equals(comboBoxX.getValue())) x = c;
 							if (c.getName().equals(comboBoxY.getValue())) y = c;
 						}
-						/*for (BooleanColumn c : boolCol) {
-								if (c.getName().equals(comboBoxX.getValue())) xb = c;
-								if (c.getName().equals(comboBoxY.getValue())) yb = c;
-							}*/
+						
 
 						XYChart.Series series = new XYChart.Series();
 						series.setName(x.getName() + " || " + y.getName());
+						for (NumericColumn c : numCol) {
+							c.update((Object) a.point.getValue(c.getName()));
+						}
 						for (IPoint p : ds.getList()) {
 							if (p==a.point) {
+								System.out.println(p.getNormalizedValue(x)+"   ||   "+p.getNormalizedValue(y));
 								series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
 								
 							}
 						}
 						sc.getData().add(series);
+						series = new XYChart.Series();
+						for (IPoint p : ds.getList()) {
+							if (p!=a.point) {
+								System.out.println(p.getNormalizedValue(x)+"   ||   "+p.getNormalizedValue(y));
+								series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
+								
+							}
+						}
+						sc.getData().add(series);
+						
+						
+						
 					}
 
 

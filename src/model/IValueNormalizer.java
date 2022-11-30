@@ -1,7 +1,5 @@
 package model;
 
-import java.io.NotActiveException;
-
 /**
  * Decrit un <i>Normaliseur</i>, c'est a dire un objet qui peut transformer
  * une valeur d'une colone en une valeur entre 0 et 1.

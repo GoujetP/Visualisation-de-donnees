@@ -53,7 +53,7 @@ public class addIPoint extends Application {
 			Spinner<Double> spinner = new Spinner<Double>();
 			if (c.getClass().equals(NumericColumn.class)) {
 
-				spinner=new Spinner<Double>(0,(double)((NumericColumn) c).getMax(),0);
+				spinner=new Spinner<Double>(0,(double)100000000,0);
 				spinner.setEditable(true);
 				vbox.getChildren().addAll(new Label (c.getName() +" : ") , spinner );
 				sp.add(spinner);
@@ -100,6 +100,7 @@ public class addIPoint extends Application {
 						}
 					}
 					if (cbon) {
+						
 						point = new Passenger(Integer.parseInt(sp.get(0).getValue().toString()),Integer.parseInt(sp.get(1).getValue().toString()),Integer.parseInt(sp.get(2).getValue().toString()),tf.get(0).getText(),tf.get(1).getText(),Integer.parseInt(sp.get(4).getValue().toString()),Integer.parseInt(sp.get(5).getValue().toString()),Integer.parseInt(sp.get(6).getValue().toString()),tf.get(2).getText(),sp.get(6).getValue(),tf.get(2).getText(),tf.get(3).getText().charAt(0));
 
 					}

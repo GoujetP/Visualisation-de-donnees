@@ -1,8 +1,6 @@
 package model;
 
-import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -34,14 +32,14 @@ public class MethodKnn implements IClassificator {
 		for (IPoint pt : ds.getList()) {
 			if (!pt.equals(p)) {
 				point.add(pt);
-				Dpoint.put(pt, d.distance(p, pt));	
+				Dpoint.put(pt, d.distance(p, pt));
 			}
 		}
 		IPoint temp = p;
 		double min = 100000000;
-		//on cherche le min dans toute la map puis on ajoute ce min à res 
-		//puis on enlève ce min de la map 
-		//et on refait une recherche du min on le stocke et on répète ça k fois
+		//on cherche le min dans toute la map puis on ajoute ce min ï¿½ res 
+		//puis on enlï¿½ve ce min de la map 
+		//et on refait une recherche du min on le stocke et on rï¿½pï¿½te ï¿½a k fois
 		for (int i = 0 ; i<k ; i++) {
 			for (int j = 0 ; j < point.size() ; j++) {
 				if (Dpoint.get(point.get(j))<=min) {

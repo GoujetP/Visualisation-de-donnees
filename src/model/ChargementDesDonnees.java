@@ -32,22 +32,7 @@ public class ChargementDesDonnees {
 	    
 	    return ctb.parse();
 	}
-	
-//	public List<IPoint> chargerReader(Reader reader,  Class<? extends IPoint> d) {
-//		
-//		try {
-//			CsvToBeanBuilder<IPoint> ctbb = new CsvToBeanBuilder<IPoint>(reader);
-//		       ctb = ctbb.withSeparator(',')
-//		        .withType(d)
-//		        .build();
-//		    ctb.setOrderedResults(true);
-//		    ctb.setThrowExceptions(false);
-//			return ctb.parse();
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//			return new ArrayList<IPoint>();
-//		}
-//	}
+
 
 
 	public List<IPoint> charger(String fileName, Class<? extends IPoint> d) {

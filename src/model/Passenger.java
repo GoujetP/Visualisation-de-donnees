@@ -47,11 +47,14 @@ public class Passenger implements IPoint{
 		this.embarked = embarked;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Passenger [Name=" + name + ", Embarked=" + embarked + "]";
+		return "Passenger [passengerId=" + passengerId + ", survived=" + survived + ", pClass=" + pClass + ", name="
+				+ name + ", sex=" + sex + ", age=" + age + ", sibSp=" + sibSp + ", parch=" + parch + ", ticket="
+				+ ticket + ", fare=" + fare + ", cabin=" + cabin + ", embarked=" + embarked + "]";
 	}
-
+	
 	@Override
 	public Object getValue(String line) {
 		switch (line) {
