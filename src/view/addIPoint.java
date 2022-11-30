@@ -100,6 +100,7 @@ public class addIPoint extends Application {
 						}
 					}
 					if (cbon) {
+						
 						point = new Passenger(Integer.parseInt(sp.get(0).getValue().toString()),Integer.parseInt(sp.get(1).getValue().toString()),Integer.parseInt(sp.get(2).getValue().toString()),tf.get(0).getText(),tf.get(1).getText(),Integer.parseInt(sp.get(4).getValue().toString()),Integer.parseInt(sp.get(5).getValue().toString()),Integer.parseInt(sp.get(6).getValue().toString()),tf.get(2).getText(),sp.get(6).getValue(),tf.get(2).getText(),tf.get(3).getText().charAt(0));
 
 					}
