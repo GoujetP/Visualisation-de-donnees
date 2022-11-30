@@ -24,6 +24,7 @@ public class testPoint {
 		assertEquals("cabin1", p1.getValue("cabin"));
 		assertEquals('a', p1.getValue("embarked"));
 		assertEquals("Passenger [Name=Jean, Embarked=a]", p1.toString());
+		assertEquals(null,p1.getValue(""));
 	}
 	
 	@Test
@@ -37,5 +38,36 @@ public class testPoint {
 		assertEquals(3.4,i1.getValue("petalWidth"));
 		assertEquals(5.0,i1.getValue("petalLength"));
 		assertEquals("setosa",i2.getValue("variety"));
+		assertEquals(null,i2.getValue(""));
+		assertEquals("Iris [sepalWidth=1.2, sepalLength=2.3, petalWidth=3.4, petalLength=5.0-> variety=setosa]",i2.toString());
+	}
+	
+	@Test
+	public void testTitanicConstructeurVide() {
+		Passenger p1 = new Passenger();
+		assertEquals(0.0, p1.getValue("passengerId"));
+		assertEquals(0.0, p1.getValue("survived"));
+		assertEquals(0.0, p1.getValue("pClass"));
+		assertEquals(null, p1.getValue("name"));
+		assertEquals(null, p1.getValue("sex"));
+		assertEquals(0.0, p1.getValue("age"));
+		assertEquals(0.0, p1.getValue("sibSp"));
+		assertEquals(0.0, p1.getValue("parch"));
+		assertEquals(null, p1.getValue("ticket"));
+		assertEquals(0.0, p1.getValue("fare"));
+		assertEquals(null, p1.getValue("cabin"));
+		assertEquals('\0', p1.getValue("embarked"));
+		assertEquals("Passenger [Name=null, Embarked="+'\0'+"]", p1.toString());
+	}
+	
+	@Test
+	public void testIrisConstructeurVide() {
+		Iris i1 = new Iris();
+		assertEquals(null,i1.getValue("variety"));
+		assertEquals(0.0,i1.getValue("sepalWidth"));
+		assertEquals(0.0,i1.getValue("sepalLength"));
+		assertEquals(0.0,i1.getValue("petalWidth"));
+		assertEquals(0.0,i1.getValue("petalLength"));
+		assertEquals("Iris [sepalWidth=0.0, sepalLength=0.0, petalWidth=0.0, petalLength=0.0-> variety=null]",i1.toString());
 	}
 }

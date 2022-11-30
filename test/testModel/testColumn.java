@@ -1,6 +1,5 @@
 package testModel;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,10 +10,10 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import model.BooleanColumn;
 import model.Column;
 import model.DataSet;
 import model.IPoint;
-import model.IValueNormalizer;
 import model.Iris;
 import model.NotNormalizable;
 
@@ -66,6 +65,12 @@ public class testColumn {
 	
 	@Test
 	public void testBooleanColumn() {
+		BooleanColumn b1 = new BooleanColumn("b1", ds);
+		assertTrue((boolean)b1.denormalize(1.0));
+		assertFalse((boolean)b1.denormalize(0.0));
+		assertEquals(1.0,b1.normalize(true));
+		assertEquals(0.0,b1.normalize(false));
+		assertTrue(b1.isNormalizable());
 	}
 	
 	@Test
