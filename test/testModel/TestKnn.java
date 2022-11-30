@@ -80,8 +80,23 @@ public class TestKnn {
 		assertEquals("tete",knn.occurenceMax(chaine4));
 	}
 	
+	@Test 
+	public void testTransverse() throws Exception {
+		MethodKnn knn = new MethodKnn(ds,new DManhattan(ds));
+		List<IPoint> ldata = new ArrayList<IPoint>();
+		List<IPoint> ltest = new ArrayList<IPoint>();
+		ldata.add(i1);ldata.add(i3);
+		ltest.add(i2);
+		List<List<IPoint>> l3 = new ArrayList<List<IPoint>>();
+		List<List<IPoint>> l4 = knn.transverse(ldata, ltest, 1);
+		
+		ldata.add(i2);ldata.remove(0);
+		ltest.remove(0);ltest.add(i1);
+		l3.add(ldata);l3.add(ltest);
+		assertEquals(l3, l4);
+	}
 	@Test
-	public void testrobustesse() {
+	public void testrobustesse() throws Exception {
 		//Particulier car la méthode utilise du random
 		//On va donc créer un dataset "particulier" avec un seul type
 		
