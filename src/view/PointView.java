@@ -226,7 +226,6 @@ public class PointView extends Application implements Observer {
 				try {
 
 					if (a!=null && a.point!=null && comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
-						ds=new DataSet(filename,listPoint);
 						if (sc.getData().size()!=0) {
 							for (int i = 0 ; i<sc.getData().size();i++) {
 								sc.getData().remove(i);
@@ -248,6 +247,9 @@ public class PointView extends Application implements Observer {
 
 						XYChart.Series series = new XYChart.Series();
 						series.setName(x.getName() + " || " + y.getName());
+						for (NumericColumn c : numCol) {
+							c.update((Object) a.point.getValue(c.getName()));
+						}
 						for (IPoint p : ds.getList()) {
 							if (p==a.point) {
 								System.out.println(p.getNormalizedValue(x)+"   ||   "+p.getNormalizedValue(y));
