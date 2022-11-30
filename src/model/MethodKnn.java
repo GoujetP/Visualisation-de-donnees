@@ -94,11 +94,11 @@ public class MethodKnn implements IClassificator {
 		int cptTotal = 0;
 		double rob = 0.0;
 		List<IPoint> listeData = d.getList();
-		List<IPoint> listeTest = new ArrayList<IPoint>();
-		List<List<IPoint>> listeFinal = new ArrayList<>();
-		Collections.shuffle(listeData); // Les données sont souvent rangées par classe donc il faut mélanger ces listes
 		int total = listeData.size();
 		int valSplit = total / nbSplit;
+		List<IPoint> listeTest = listeData.subList(0,valSplit);
+		List<List<IPoint>> listeFinal = new ArrayList<>();
+		Collections.shuffle(listeData); // Les données sont souvent rangées par classe donc il faut mélanger ces listes
 		for(int i = 0 ; i < nbSplit ; i++) {
 			for(int j = 0 ; j < valSplit ; j++) {
 				listeFinal = transverse(listeData,listeTest,valSplit);
@@ -113,6 +113,7 @@ public class MethodKnn implements IClassificator {
 					cptTotal++;
 				}
 			}
+			System.out.println("petit compteur ("+cpt+") grand compteur ("+cptTotal+") " );
 			rob += ((double)(cpt/cptTotal*100));
 		}
 		return rob;
