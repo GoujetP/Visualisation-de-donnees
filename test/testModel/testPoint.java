@@ -7,11 +7,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import model.Column;
 import model.DataSet;
 import model.IPoint;
 import model.Iris;
-import model.NumericColumn;
 import model.Passenger;
 
 public class testPoint {

@@ -20,11 +20,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.BooleanColumn;
 import model.ChargementDesDonnees;
 import model.Column;
 import model.DEuclidienne;
@@ -33,9 +31,9 @@ import model.DataSet;
 import model.IDistance;
 import model.IPoint;
 import model.Iris;
-import model.Passenger;
 import model.MethodKnn;
 import model.NumericColumn;
+import model.Passenger;
 import utils.Observer;
 import utils.Subject;
 
@@ -76,7 +74,7 @@ public class PointView extends Application implements Observer {
 		this.ds=new DataSet(filename, listPoint);
 		a = new addIPoint(filename,ds);
 		ds.attach(this);
-		stage.setTitle("Classification de données");
+		stage.setTitle("Classification de donnï¿½es");
 		List<NumericColumn> numCol = new ArrayList<NumericColumn>();
 		//List<BooleanColumn> boolCol = new ArrayList<BooleanColumn>();
 		for (Column c : ds.getColumns()) {

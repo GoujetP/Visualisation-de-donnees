@@ -20,7 +20,6 @@ import model.IValueNormalizer.NormalizerTypes;
 import model.Iris;
 import model.NotNormalizable;
 import model.NumericColumn;
-import model.Passenger;
 import model.StringColumn;
 
 public class testColumn {
