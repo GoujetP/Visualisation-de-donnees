@@ -55,6 +55,9 @@ public class Passenger implements IPoint{
 				+ ticket + ", fare=" + fare + ", cabin=" + cabin + ", embarked=" + embarked + "]";
 	}
 	
+	public String toStringShort() {
+		return "Passenger [name="+ name + ", sex=" + sex + ", age=" + age + "]";
+	}
 	@Override
 	public Object getValue(String line) {
 		switch (line) {

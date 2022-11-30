@@ -87,55 +87,44 @@ public class MethodKnn implements IClassificator {
 	}
 	
 	@Override
-	public double robustness(String choix, DataSet d, IPoint p) throws Exception {
+	public double robustness(String choix, DataSet d, IPoint p) {
 		int k = 3; // A améliorer
 		int nbSplit = 5; // Nombre de folds
 		int cpt = 0;
 		int cptTotal = 0;
 		double rob = 0.0;
 		List<IPoint> listeData = d.getList();
-		List<IPoint> listeTest = new ArrayList<IPoint>();
 		int total = listeData.size();
 		int valSplit = total / nbSplit;
-		if(!listeData.isEmpty() && listeData.size() >= valSplit) {
-			listeTest.add(listeData.remove(0));
-		}
+		List<IPoint> listeTest = listeData.subList(0,valSplit);
 		List<List<IPoint>> listeFinal = new ArrayList<>();
 		Collections.shuffle(listeData); // Les données sont souvent rangées par classe donc il faut mélanger ces listes
-		for(int i = 0 ; i < nbSplit ; i++) { // on fait nbSplit occurence de test
-			for(int j = 0 ; j < valSplit ; j++) { // on parcourt la liste de test valSplit fois
+		for(int i = 0 ; i < nbSplit ; i++) {
+			for(int j = 0 ; j < valSplit ; j++) {
 				listeFinal = transverse(listeData,listeTest,valSplit);
 				listeData = listeFinal.get(0);
-				listeTest = listeFinal.get(1);
+				listeData = listeFinal.get(1);
 				DataSet ds1 = new DataSet("ds1", listeData);
 				MethodKnn knn = new MethodKnn(ds1, new DManhattan(ds1));
-				
-				for(IPoint pointTest : listeTest) {
-					String res = knn.classifier(k, pointTest, choix);
-					String goodRes = (String) pointTest.getValue(choix); 
+				for(IPoint pTest : listeTest) {
+					String res = knn.classifier(k, pTest, choix);
+					String goodRes = (String) pTest.getValue(choix); 
 					if(res.equals(goodRes)) cpt++;
 					cptTotal++;
 				}
 			}
+			System.out.println("petit compteur ("+cpt+") grand compteur ("+cptTotal+") " );
+			rob += ((double)(cpt/cptTotal*100));
 		}
-		rob += ((double)(cpt/cptTotal*100));
 		return rob;
 	}
 	
-	//renvoie les éléments de listeTest dans listeData et n element de listeData dans listeTest 
-	public List<List<IPoint>> transverse(List<IPoint> listeData, List<IPoint> listeTest, int n) throws Exception{
-		List<List<IPoint>> listeFinal = new ArrayList<List<IPoint>>();
-		if(n > listeTest.size()) throw new Exception();
+	public List<List<IPoint>> transverse(List<IPoint> listeData, List<IPoint> listeTest, int n){
 		for(int i = 0 ; i < n ; i++) {
-			if(!listeData.isEmpty() && !listeTest.isEmpty()) {
-				IPoint tmp = listeTest.remove(i);
-				IPoint tmp2 = listeData.remove(i);
-				listeData.add(tmp);
-				listeTest.add(tmp2);
-			}
-			
+			IPoint tmp = listeTest.remove(i);
+			listeData.add(tmp);
 		}
-		
+		List<List<IPoint>> listeFinal = new ArrayList<>();
 		listeFinal.add(listeData);
 		listeFinal.add(listeTest);
 		return listeFinal;

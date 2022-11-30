@@ -19,6 +19,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -49,6 +50,8 @@ public class PointView extends Application implements Observer {
 	protected String filename;
 	protected Class p;
 	protected addIPoint a ;
+	protected MethodKnn m ;
+	protected Label labelRob;
 
 
 	public PointView(String filename) {
@@ -107,6 +110,7 @@ public class PointView extends Application implements Observer {
 		final HBox hbox = new HBox();
 		final VBox kNN = new VBox();
 		final VBox vbox2 = new VBox();
+		final VBox vbox3 = new VBox();
 		final HBox hbox2 = new HBox();
 		final HBox hbox3 = new HBox();
 		final Button add = new Button("Add Series");
@@ -116,9 +120,11 @@ public class PointView extends Application implements Observer {
 		final Button submit = new Button("Valider");
 		final Button saisirIpoint = new Button("Saisir un nouveau point");
 		final Button addIpoint = new Button("Ajouter le nouveau point");
-
+		final ProgressBar pgbar = new ProgressBar(0);
+		
+		labelRob=new Label("0%");
 		hbox.setSpacing(10);
-
+		
 		final ComboBox<String> comboBoxX = new ComboBox();
 		final ComboBox<String> comboBoxY = new ComboBox();
 		final ComboBox<String> choixDuPoint = new ComboBox();
@@ -135,7 +141,7 @@ public class PointView extends Application implements Observer {
 		}
 		
 		for (int i = 0 ; i<ds.getList().size() ; i++)  {
-			comboIPoint[i]=ds.getList().get(i).toString();
+			comboIPoint[i]=ds.getList().get(i).toStringShort();
 		}
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
@@ -176,14 +182,35 @@ public class PointView extends Application implements Observer {
 					else {
 						d=new DManhattan(ds);
 					}
-
-					MethodKnn m = new MethodKnn(ds,d);
+					
+					m = new MethodKnn(ds,d);
+					
 					IPoint point = ds.getList().get(0);
 					for (IPoint p : ds.getList()) {
 						if (p.toString().equals(choixDuPoint.getValue())) {
 							point=p;
 						}
 					}
+					/*if (filename.equals("iris")) {
+						try {
+							pgbar.setProgress(m.robustness("variety", ds, new Iris()));
+							labelRob.setText(""+m.robustness("variety", ds, new Iris()));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+					}
+					else if (filename.equals("titanic")) {
+						try {
+							pgbar.setProgress(m.robustness("survived", ds, new Passenger()));
+							labelRob.setText(""+m.robustness("survived", ds, new Passenger()));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+					}*/
 					if (comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
 						NumericColumn x = numCol.get(0);
 						NumericColumn y = numCol.get(1);
@@ -307,10 +334,12 @@ public class PointView extends Application implements Observer {
 		kNN.getChildren().addAll(hbox3,choixDuPoint,labelVoisins,nbVoisins ,choixDistance, submit);
 		kNN.setMargin(choixDistance, new Insets(5,5,5,0));
 		hbox2.getChildren().addAll(add, remove,comboBoxX,comboBoxY);
-		hbox.getChildren().addAll(hbox2,vbox2,kNN);
+		vbox3.getChildren().addAll(hbox2/*,new Label("Robustesse :"),pgbar,labelRob*/);
+		hbox.getChildren().addAll(vbox3,vbox2,kNN);
 		vbox.getChildren().addAll(sc, hbox);
+		vbox3.setMargin(pgbar, new Insets(10, 10, 10, 10));
 		hbox.setPadding(new Insets(10, 10, 10, 50));
-
+		
 		((Group)scene.getRoot()).getChildren().add(vbox);
 		stage.setScene(scene);
 		stage.show();
