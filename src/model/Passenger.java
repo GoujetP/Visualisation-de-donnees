@@ -55,6 +55,7 @@ public class Passenger implements IPoint{
 				+ ticket + ", fare=" + fare + ", cabin=" + cabin + ", embarked=" + embarked + "]";
 	}
 	
+	
 	@Override
 	public Object getValue(String line) {
 		switch (line) {

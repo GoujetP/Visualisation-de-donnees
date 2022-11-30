@@ -47,6 +47,9 @@ public class Iris implements IPoint{
 				+ ", petalLength=" + petalLength + "-> variety=" + variety + "]";		
 	}
 	
+	
+	
+	
 	@Override
 	public Object getValue(String name) {
 		switch(name) {
