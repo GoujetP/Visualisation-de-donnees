@@ -20,6 +20,7 @@ import model.IValueNormalizer.NormalizerTypes;
 import model.Iris;
 import model.NotNormalizable;
 import model.NumericColumn;
+import model.Passenger;
 import model.StringColumn;
 
 public class testColumn {
@@ -109,10 +110,28 @@ public class testColumn {
 	@Test
 	public void testColumnLink() {
 		Column c1 = ds.getColumns().get(0);
-		Column c2 = new Column("null",null);
 		assertTrue(c1.isLink());
-		assertFalse(c2.isLink());
+		c1.setDataset(null);;
+		assertFalse(c1.isLink());
 	}
+	
+	@Test
+	public void testGetDataSet() {
+		Column c = ds.getColumns().get(0);
+		assertEquals(ds,c.getDataset());
+	}
+	
+	/*@Test
+	public void testGetNormalizedValue() throws NotNormalizable {
+		Passenger p1 = new Passenger(1,2,3,"Jean","homme",18,4,5,"ticket1",6.7,"cabin1",'a');
+		List<IPoint> listPoint = new ArrayList<IPoint>();
+		listPoint.add(p1);
+		DataSet ds1 = new DataSet("Titanic", listPoint);
+		Column c = ds1.getColumns().get(3);
+		c.getNormalizedValue(p1);
+	}*/
+	
+	
 	
 	
 
