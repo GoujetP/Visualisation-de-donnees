@@ -48,10 +48,7 @@ public class Iris implements IPoint{
 	}
 	
 	
-	public String toStringShort() {
-		return "Iris [sepalWidth=" + sepalWidth + ", sepalLength=" + sepalLength + ", petalWidth=" + petalWidth
-				+ ", petalLength=" + petalLength + "-> variety=" + variety + "]";
-	}
+	
 	
 	@Override
 	public Object getValue(String name) {

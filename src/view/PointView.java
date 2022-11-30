@@ -141,7 +141,7 @@ public class PointView extends Application implements Observer {
 		}
 		
 		for (int i = 0 ; i<ds.getList().size() ; i++)  {
-			comboIPoint[i]=ds.getList().get(i).toStringShort();
+			comboIPoint[i]=ds.getList().get(i).toString();
 		}
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
@@ -191,7 +191,7 @@ public class PointView extends Application implements Observer {
 							point=p;
 						}
 					}
-					/*if (filename.equals("iris")) {
+					if (filename.equals("iris")) {
 						try {
 							pgbar.setProgress(m.robustness("variety", ds, new Iris()));
 							labelRob.setText(""+m.robustness("variety", ds, new Iris()));
@@ -210,7 +210,7 @@ public class PointView extends Application implements Observer {
 							e1.printStackTrace();
 						}
 						
-					}*/
+					}
 					if (comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
 						NumericColumn x = numCol.get(0);
 						NumericColumn y = numCol.get(1);
@@ -334,7 +334,7 @@ public class PointView extends Application implements Observer {
 		kNN.getChildren().addAll(hbox3,choixDuPoint,labelVoisins,nbVoisins ,choixDistance, submit);
 		kNN.setMargin(choixDistance, new Insets(5,5,5,0));
 		hbox2.getChildren().addAll(add, remove,comboBoxX,comboBoxY);
-		vbox3.getChildren().addAll(hbox2/*,new Label("Robustesse :"),pgbar,labelRob*/);
+		vbox3.getChildren().addAll(hbox2,new Label("Robustesse :"),pgbar,labelRob);
 		hbox.getChildren().addAll(vbox3,vbox2,kNN);
 		vbox.getChildren().addAll(sc, hbox);
 		vbox3.setMargin(pgbar, new Insets(10, 10, 10, 10));

@@ -21,6 +21,5 @@ public interface IPoint {
 	 */
 
 	public double getNormalizedValue(Column xcol);
-	public Object getValue(String name);
-	public String toStringShort();	
+	public Object getValue(String name);	
 }

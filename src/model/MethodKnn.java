@@ -101,7 +101,12 @@ public class MethodKnn implements IClassificator {
 		Collections.shuffle(listeData); // Les données sont souvent rangées par classe donc il faut mélanger ces listes
 		for(int i = 0 ; i < nbSplit ; i++) {
 			for(int j = 0 ; j < valSplit ; j++) {
-				listeFinal = transverse(listeData,listeTest,valSplit);
+				try {
+					listeFinal = transverse(listeData,listeTest,valSplit);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				listeData = listeFinal.get(0);
 				listeData = listeFinal.get(1);
 				DataSet ds1 = new DataSet("ds1", listeData);
@@ -119,7 +124,12 @@ public class MethodKnn implements IClassificator {
 		return rob;
 	}
 	
-	public List<List<IPoint>> transverse(List<IPoint> listeData, List<IPoint> listeTest, int n){
+
+	//renvoie les éléments de listeTest dans listeData et n element de listeData dans listeTest 
+	public List<List<IPoint>> transverse(List<IPoint> listeData, List<IPoint> listeTest, int n) throws Exception{
+		
+		//if(n > listeTest.size()) throw new Exception();
+
 		for(int i = 0 ; i < n ; i++) {
 			IPoint tmp = listeTest.remove(i);
 			listeData.add(tmp);
