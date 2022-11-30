@@ -20,6 +20,7 @@ import model.IValueNormalizer.NormalizerTypes;
 import model.Iris;
 import model.NotNormalizable;
 import model.NumericColumn;
+import model.Passenger;
 import model.StringColumn;
 
 public class testColumn {
@@ -92,6 +93,46 @@ public class testColumn {
 	public void testNormalizerTypes() {
 		assertNotNull(NormalizerTypes.BOOLEAN_NORMALIZER);
 	}
+	
+	@Test
+	public void testColumnEquals() {
+		Column c = ds.getColumns().get(0);
+		assertFalse(c.equals(null));
+		assertFalse(c.equals(ds));
+	}
+	
+	@Test
+	public void testColumnName() {
+		Column c = ds.getColumns().get(0);
+		assertEquals("sepalWidth",c.toString());
+	}
+	
+	@Test
+	public void testColumnLink() {
+		Column c1 = ds.getColumns().get(0);
+		assertTrue(c1.isLink());
+		c1.setDataset(null);;
+		assertFalse(c1.isLink());
+	}
+	
+	@Test
+	public void testGetDataSet() {
+		Column c = ds.getColumns().get(0);
+		assertEquals(ds,c.getDataset());
+	}
+	
+	/*@Test
+	public void testGetNormalizedValue() throws NotNormalizable {
+		Passenger p1 = new Passenger(1,2,3,"Jean","homme",18,4,5,"ticket1",6.7,"cabin1",'a');
+		List<IPoint> listPoint = new ArrayList<IPoint>();
+		listPoint.add(p1);
+		DataSet ds1 = new DataSet("Titanic", listPoint);
+		Column c = ds1.getColumns().get(3);
+		c.getNormalizedValue(p1);
+	}*/
+	
+	
+	
 	
 
 }

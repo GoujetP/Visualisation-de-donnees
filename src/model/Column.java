@@ -46,6 +46,10 @@ public abstract class Column implements  IValueNormalizer {
 	public DataSet getDataset() {
 		return dataset;
 	}
+	
+	public void setDataset(DataSet d1) {
+		dataset = d1;
+	}
 
 	@Override
 	public boolean equals(Object obj) {

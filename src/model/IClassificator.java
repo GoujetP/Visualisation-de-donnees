@@ -9,6 +9,6 @@ public interface IClassificator {
 	
 	public List<IPoint> getNeighbours(int k, IPoint p);
 	
-	public double robustness(int k, String fileName, IPoint p);
+	public double robustness(String choix, DataSet d, IPoint p) throws Exception;
 	
 }

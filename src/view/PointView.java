@@ -211,7 +211,7 @@ public class PointView extends Application implements Observer {
 				}
 			}
 		});
-		System.out.println(ds.getColumns().get(ds.getColumns().size()-1));
+		
 		addIpoint.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				
@@ -239,22 +239,26 @@ public class PointView extends Application implements Observer {
 						for (NumericColumn c : numCol) {
 							c.update((Object) a.point.getValue(c.getName()));
 						}
+						
 						for (IPoint p : ds.getList()) {
-							if (p==a.point) {
-								System.out.println(p.getNormalizedValue(x)+"   ||   "+p.getNormalizedValue(y));
+							if (p!=a.point) {
+								
 								series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
 								
 							}
 						}
 						sc.getData().add(series);
 						series = new XYChart.Series();
+						
+						series.setName("Nouveau Point");
 						for (IPoint p : ds.getList()) {
-							if (p!=a.point) {
-								System.out.println(p.getNormalizedValue(x)+"   ||   "+p.getNormalizedValue(y));
+							if (p==a.point) {
+								
 								series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
 								
 							}
 						}
+						
 						sc.getData().add(series);
 						
 						
@@ -266,6 +270,12 @@ public class PointView extends Application implements Observer {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				String[] comboIPoint = new String[ds.getList().size()];
+				for (int i = 0 ; i<ds.getList().size() ; i++)  {
+					comboIPoint[i]=ds.getList().get(i).toString();
+				}
+				choixDuPoint.getItems().setAll(comboIPoint);
 
 
 
