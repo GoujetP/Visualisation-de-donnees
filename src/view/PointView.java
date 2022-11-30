@@ -221,13 +221,18 @@ public class PointView extends Application implements Observer {
 		System.out.println(ds.getColumns().get(ds.getColumns().size()-1));
 		addIpoint.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-
-
+				
+				listPoint.add(a.point);
 				try {
 
 					if (a!=null && a.point!=null && comboBoxX.getValue()!=null && comboBoxY.getValue()!=null) {
-						ds.addLine(a.point);
-
+						ds=new DataSet(filename,listPoint);
+						if (sc.getData().size()!=0) {
+							for (int i = 0 ; i<sc.getData().size();i++) {
+								sc.getData().remove(i);
+							}
+						}
+						
 						NumericColumn x = numCol.get(0);
 						NumericColumn y = numCol.get(1);
 						/*BooleanColumn xb =boolCol.get(0);
@@ -245,11 +250,16 @@ public class PointView extends Application implements Observer {
 						series.setName(x.getName() + " || " + y.getName());
 						for (IPoint p : ds.getList()) {
 							if (p==a.point) {
+								System.out.println(p.getNormalizedValue(x)+"   ||   "+p.getNormalizedValue(y));
 								series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
 								
 							}
 						}
+						/*for (IPoint p : ds.getList()) {
+							series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
+						}*/
 						sc.getData().add(series);
+						
 					}
 
 

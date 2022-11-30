@@ -53,7 +53,7 @@ public class addIPoint extends Application {
 			Spinner<Double> spinner = new Spinner<Double>();
 			if (c.getClass().equals(NumericColumn.class)) {
 
-				spinner=new Spinner<Double>(0,(double)((NumericColumn) c).getMax(),0);
+				spinner=new Spinner<Double>(0,(double)100000000,0);
 				spinner.setEditable(true);
 				vbox.getChildren().addAll(new Label (c.getName() +" : ") , spinner );
 				sp.add(spinner);
