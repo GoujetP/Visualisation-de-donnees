@@ -34,14 +34,14 @@ public class MethodKnn implements IClassificator {
 		for (IPoint pt : ds.getList()) {
 			if (!pt.equals(p)) {
 				point.add(pt);
-				Dpoint.put(pt, d.distance(p, pt));	
+				Dpoint.put(pt, d.distance(p, pt));
 			}
 		}
 		IPoint temp = p;
 		double min = 100000000;
-		//on cherche le min dans toute la map puis on ajoute ce min à res 
-		//puis on enlève ce min de la map 
-		//et on refait une recherche du min on le stocke et on répète ça k fois
+		//on cherche le min dans toute la map puis on ajoute ce min ï¿½ res 
+		//puis on enlï¿½ve ce min de la map 
+		//et on refait une recherche du min on le stocke et on rï¿½pï¿½te ï¿½a k fois
 		for (int i = 0 ; i<k ; i++) {
 			for (int j = 0 ; j < point.size() ; j++) {
 				if (Dpoint.get(point.get(j))<=min) {
@@ -94,7 +94,7 @@ public class MethodKnn implements IClassificator {
 	@Override
 	public double robustness(int k, String fileName, IPoint p) {
 		String choix = "variety";
-		//Nombre de division de la validation croisée
+		//Nombre de division de la validation croisï¿½e
 		int nbSplit = 5;
 		int cpt = 0;
 		int cptTotal = 0;
@@ -117,8 +117,8 @@ public class MethodKnn implements IClassificator {
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
 			String goodRes = (String) pTest.getValue(choix); 
-			//System.out.println("1) Variété réelle :  " + goodRes);
-			//System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			//System.out.println("1) Variï¿½tï¿½ rï¿½elle :  " + goodRes);
+			//System.out.println("2) Rï¿½sultat de l'algo avec voisins : " + res );
 			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
@@ -133,8 +133,8 @@ public class MethodKnn implements IClassificator {
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
 			String goodRes = (String) pTest.getValue(choix); 
-			System.out.println("1) Variété réelle :  " + goodRes);
-			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			System.out.println("1) Variï¿½tï¿½ rï¿½elle :  " + goodRes);
+			System.out.println("2) Rï¿½sultat de l'algo avec voisins : " + res );
 			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
@@ -149,8 +149,8 @@ public class MethodKnn implements IClassificator {
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
 			String goodRes = (String) pTest.getValue(choix); 
-			System.out.println("1) Variété réelle :  " + goodRes);
-			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			System.out.println("1) Variï¿½tï¿½ rï¿½elle :  " + goodRes);
+			System.out.println("2) Rï¿½sultat de l'algo avec voisins : " + res );
 			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
@@ -165,8 +165,8 @@ public class MethodKnn implements IClassificator {
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
 			String goodRes = (String) pTest.getValue(choix); 
-			System.out.println("1) Variété réelle :  " + goodRes);
-			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			System.out.println("1) Variï¿½tï¿½ rï¿½elle :  " + goodRes);
+			System.out.println("2) Rï¿½sultat de l'algo avec voisins : " + res );
 			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}
@@ -181,8 +181,8 @@ public class MethodKnn implements IClassificator {
 		for(IPoint pTest : listeTest) {
 			String res = knn.classifier(k, pTest, choix);
 			String goodRes = (String) pTest.getValue(choix); 
-			System.out.println("1) Variété réelle :  " + goodRes);
-			System.out.println("2) Résultat de l'algo avec voisins : " + res );
+			System.out.println("1) Variï¿½tï¿½ rï¿½elle :  " + goodRes);
+			System.out.println("2) Rï¿½sultat de l'algo avec voisins : " + res );
 			if(res.equals(goodRes)) cpt++;
 			cptTotal++;
 		}

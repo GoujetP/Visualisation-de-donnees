@@ -1,5 +1,6 @@
 package testModel;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringReader;
@@ -12,10 +13,19 @@ import org.junit.jupiter.api.Test;
 import model.ChargementDesDonnees;
 import model.IPoint;
 import model.Iris;
+import model.Passenger;
 
 public class TestChargementDesDonnees {
 	
 	// Class Attributes
+	
+	protected String passengerFile = "titanic.csv";
+	
+	protected List<IPoint> passengerSet = new ArrayList<>();
+	
+	
+	protected String irisFile = "iris.csv";
+	
 	protected List<IPoint> irisSet = new ArrayList<>();
 	
 	protected String irisString = "\"sepal.width\",\"sepal.length\",\"petal.width\",\"petal.length\",\"variety\"\n"
@@ -49,8 +59,14 @@ public class TestChargementDesDonnees {
 	// Constructor
 
 	// Methods
-	@BeforeEach
-	public void setup() {
+	
+	public void setupFileReader() {
+		this.passengerSet = new ChargementDesDonnees().charger(passengerFile, Passenger.class);
+		this.irisSet = new ChargementDesDonnees().charger(irisFile, Iris.class);
+
+	}
+	
+	public void setupStringReader() {
 		this.irisSet = new ChargementDesDonnees().chargerReader(new StringReader(irisString), Iris.class);
 		this.vincentSet = new ChargementDesDonnees().chargerReader(new StringReader(vincentLagaffeString) , VincentLagaffe.class);
 	}
@@ -61,14 +77,13 @@ public class TestChargementDesDonnees {
 	// Gérer trou sur une colonne
 	
 	@Test
-	public void chargementDesDonnees() {
+	public void testChargerReader() {
 		
-		for(IPoint i : irisSet) System.out.println(i.toString());
-		System.out.println();
+		this.setupStringReader();
 		
 		assertEquals("Iris [sepalWidth=5.1, sepalLength=3.5, petalWidth=1.4, petalLength=0.2-> variety=Setosa]", this.irisSet.get(0).toString());
-	
-		for(IPoint vl : vincentSet) System.out.println(vl.toString());		
+		assertEquals("Iris [sepalWidth=5.6, sepalLength=2.9, petalWidth=3.6, petalLength=1.3-> variety=Versicolor]", this.irisSet.get(this.irisSet.size()-1).toString());
+
 		
 		assertEquals(5, this.vincentSet.size());
 		
@@ -76,6 +91,28 @@ public class TestChargementDesDonnees {
 		assertEquals("VincentLagaffe [entier=-20, flottant=20.1, chaine=Lacaffe, bool=true]", this.vincentSet.get(2).toString());
 		
 		
+	}
+	
+	@Test
+	public void testChargerFile() {
+		
+		this.setupFileReader();
+				
+		assertEquals("Passenger [passengerId=1.0, survived=0.0, pClass=3.0, name=Braund, Mr. Owen Harris, sex=male, age=22.0,"
+						+ " sibSp=1.0, parch=0.0, ticket=A/5 21171, fare=7.25, cabin=, embarked=S]", this.passengerSet.get(0).toString());
+		
+		
+		assertEquals("Iris [sepalWidth=3.5, sepalLength=5.1, petalWidth=0.2, petalLength=1.4-> variety=Setosa]", this.irisSet.get(0).toString());
+		assertEquals("Iris [sepalWidth=3.0, sepalLength=5.9, petalWidth=1.8, petalLength=5.1-> variety=Virginica]", this.irisSet.get(this.irisSet.size()-1).toString());
+
+	}
+	
+	
+	@Test
+	public void testChargerMauvaisFile() {
+		
+		assertNull(new ChargementDesDonnees().charger("MauvaisChemin", Iris.class));
+	
 	}
 	
 	
