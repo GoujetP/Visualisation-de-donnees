@@ -66,12 +66,10 @@ public class DataSet extends Subject implements IDataset  {
 		Field[] fields = this.datas.get(0).getClass().getDeclaredFields();
 		List<Column> res = new ArrayList<Column>();
 		for (Field f : fields) {
-			System.out.println(f.getType().getName());
 			if (f.getType().getName().equals("double")||f.getType().getName().equals("int")){
 				res.add(new NumericColumn(f.getName(),this));
 			}
 			else if (f.getType().getName().equals("java.lang.String") || (f.getType().getName().equals("char"))) {
-				System.out.println(f.getType().getName());
 				res.add(new StringColumn(f.getName(), this));
 			}
 			else if (f.getType().getName().equals("boolean")) {
@@ -82,7 +80,6 @@ public class DataSet extends Subject implements IDataset  {
 		return res;
 	}
 
-	
 	public List<Column> getColumns() {
 		return columns;
 	}

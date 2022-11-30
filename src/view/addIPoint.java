@@ -46,71 +46,112 @@ public class addIPoint extends Application {
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		VBox vbox = new VBox();
-		List<TextField> tf = new ArrayList<TextField>();
-		List<Spinner<Double>> sp = new ArrayList<Spinner<Double>>();
-		for (Column c : ds.getColumns()) {
-			TextField t = new TextField();
-			Spinner<Double> spinner = new Spinner<Double>();
-			if (c.getClass().equals(NumericColumn.class)) {
 
-				spinner=new Spinner<Double>(0,(double)100000000,0);
-				spinner.setEditable(true);
-				vbox.getChildren().addAll(new Label (c.getName() +" : ") , spinner );
-				sp.add(spinner);
+		
+		
+		
+		if (filename.equals("iris")) {
+			List<TextField> tf = new ArrayList<TextField>();
+			List<Spinner<Double>> sp = new ArrayList<Spinner<Double>>();
+			for (Column c : ds.getColumns()) {
+				TextField t = new TextField();
+				Spinner<Double> spinner = new Spinner<Double>();
+				if (c.getClass().equals(NumericColumn.class)) {
+
+					spinner=new Spinner<Double>(0,(double)100000000,0);
+					
+					vbox.getChildren().addAll(new Label (c.getName() +" : ") , spinner );
+					sp.add(spinner);
+				}
+				else if (c.getClass().equals(StringColumn.class)) {
+					vbox.getChildren().addAll(new Label (c.getName() +" : ") , t );
+					tf.add(t);
+				}
+
+
 			}
-			else if (c.getClass().equals(StringColumn.class)) {
-				vbox.getChildren().addAll(new Label (c.getName() +" : ") , t );
-				tf.add(t);
-			}
 
+			Button valider = new Button("Valider");
+			valider.setOnAction(new EventHandler<ActionEvent>() {
+				@Override 
+				public void handle(ActionEvent e) {
+					boolean cbon=true;
+					if (p.equals(Iris.class)) {
+						for (TextField t : tf) {
+							System.out.println(t.getText());
+							if (t.getText()==null) {
+								cbon=false;
+							}
+						}
+						for (Spinner s : sp) {
+							System.out.println(s.getValue());
+							if (s.getValue()==null) {
+								cbon=false;
+							}
+						}
+						if (cbon) {
+							point = new Iris(sp.get(0).getValue(),sp.get(1).getValue(),sp.get(2).getValue(),sp.get(3).getValue(),tf.get(0).getText());
+							System.out.println(point);
+						}
+					}
+					
+					stage.close();
 
+				}
+			});
+			vbox.getChildren().add(valider);
 		}
-		Button valider = new Button("Valider");
-		valider.setOnAction(new EventHandler<ActionEvent>() {
-			@Override 
-			public void handle(ActionEvent e) {
-				boolean cbon=true;
-				if (p.equals(Iris.class)) {
-					for (TextField t : tf) {
-						System.out.println(t.getText());
-						if (t.getText()==null) {
-							cbon=false;
-						}
-					}
-					for (Spinner s : sp) {
-						System.out.println(s.getValue());
-						if (s.getValue()==null) {
-							cbon=false;
-						}
-					}
-					if (cbon) {
-						point = new Iris(sp.get(0).getValue(),sp.get(1).getValue(),sp.get(2).getValue(),sp.get(3).getValue(),tf.get(0).getText());
-						System.out.println(point);
-					}
-				}
-				else if (p.equals(Passenger.class)) {
-					for (TextField t : tf) {
-						if (t.getText()==null) {
-							cbon=false;
-						}
-					}
-					for (Spinner s : sp) {
-						if (s.getValue()==null) {
-							cbon=false;
-						}
-					}
-					if (cbon) {
-						
-						point = new Passenger(Integer.parseInt(sp.get(0).getValue().toString()),Integer.parseInt(sp.get(1).getValue().toString()),Integer.parseInt(sp.get(2).getValue().toString()),tf.get(0).getText(),tf.get(1).getText(),Integer.parseInt(sp.get(4).getValue().toString()),Integer.parseInt(sp.get(5).getValue().toString()),Integer.parseInt(sp.get(6).getValue().toString()),tf.get(2).getText(),sp.get(6).getValue(),tf.get(2).getText(),tf.get(3).getText().charAt(0));
+		else {
+			List<TextField> tf = new ArrayList<TextField>();
+			List<Spinner<Integer>> sp = new ArrayList<Spinner<Integer>>();
+			for (Column c : ds.getColumns()) {
+				TextField t = new TextField();
+				Spinner<Integer> spinner = new Spinner<Integer>();
+				if (c.getClass().equals(NumericColumn.class)) {
 
-					}
-
+					spinner=new Spinner<Integer>(0,(int)100000000,0);
+					
+					vbox.getChildren().addAll(new Label (c.getName() +" : ") , spinner );
+					sp.add(spinner);
 				}
-				stage.close();
+				else if (c.getClass().equals(StringColumn.class)) {
+					vbox.getChildren().addAll(new Label (c.getName() +" : ") , t );
+					tf.add(t);
+				}
+
 
 			}
-		});
-		vbox.getChildren().add(valider);
+			Button valider = new Button("Valider");
+			valider.setOnAction(new EventHandler<ActionEvent>() {
+				@Override 
+				public void handle(ActionEvent e) {
+					boolean cbon=true;
+					
+					if (p.equals(Passenger.class)) {
+						for (TextField t : tf) {
+							if (t.getText()==null) {
+								cbon=false;
+							}
+						}
+						for (Spinner s : sp) {
+							if (s.getValue()==null) {
+								cbon=false;
+							}
+						}
+						if (cbon) {
+							point = new Passenger(Integer.parseInt(sp.get(0).getValue().toString()),Integer.parseInt(sp.get(1).getValue().toString()),Integer.parseInt(sp.get(2).getValue().toString()),tf.get(0).getText(),tf.get(1).getText(),Integer.parseInt(sp.get(4).getValue().toString()),Integer.parseInt(sp.get(5).getValue().toString()),Integer.parseInt(sp.get(6).getValue().toString()),tf.get(2).getText(),sp.get(6).getValue(),tf.get(2).getText(),tf.get(3).getText().charAt(0));
+
+						}
+
+					}
+					
+					stage.close();
+
+				}
+			});
+			vbox.getChildren().add(valider);
+		}
+		
 		Scene scene  = new Scene(new Group());
 		((Group)scene.getRoot()).getChildren().add(vbox);
 		stage.setScene(scene);
