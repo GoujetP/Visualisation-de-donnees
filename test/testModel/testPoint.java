@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import model.Column;
 import model.DataSet;
 import model.IPoint;
 import model.Iris;
+import model.NumericColumn;
 import model.Passenger;
 
 public class testPoint {
@@ -77,6 +79,17 @@ public class testPoint {
 	}
 	
 	@Test
+	public void testVincentLagaffeConstructeurVide() {
+		VincentLagaffe vincent = new VincentLagaffe();
+		assertEquals(0,vincent.getValue("entier"));
+		assertEquals(0.0,vincent.getValue("flottant"));
+		assertEquals(null,vincent.getValue("chaine"));
+		assertEquals(false,vincent.getValue("bool"));
+		assertEquals(null,vincent.getValue("faux"));
+		assertEquals("VincentLagaffe [entier=0, flottant=0.0, chaine=null, bool=false]",vincent.toString());
+	}
+	
+	@Test
 	public void testGetNormalizedValuePassenger() {
 		Passenger p1 = new Passenger(1,2,3,"Jean","homme",18,4,5,"ticket1",6.7,"cabin1",'a');
 		Passenger p2 = new Passenger(1,1,2,"Julie","femme",20,3,2,"ticket2",5.7,"cabin3",'s');
@@ -99,4 +112,5 @@ public class testPoint {
 		
 		assertEquals(0.0, i1.getNormalizedValue(ds.getColumns().get(0)));	
 	}
+	
 }

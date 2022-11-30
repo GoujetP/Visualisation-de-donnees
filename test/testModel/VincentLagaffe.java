@@ -19,14 +19,14 @@ public class VincentLagaffe implements IPoint {
 	private boolean bool;
 
 	// Constructor
+	
 
 	// Methods
 	
 	
 	@Override
 	public double getNormalizedValue(Column xcol) {
-		// TODO Auto-generated method stub
-		return xcol.getNormalizedValue(this);
+		return 0.0;
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class VincentLagaffe implements IPoint {
 
 	@Override
 	public Object getValue(String name) {
-		// TODO Auto-generated method stub
+		
 		if(name.equals("entier")) {
 			return this.entier;
 		} else if(name.equals("flottant")) {
