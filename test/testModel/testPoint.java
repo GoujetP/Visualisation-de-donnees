@@ -28,7 +28,7 @@ public class testPoint {
 		assertEquals(6.7, p1.getValue("fare"));
 		assertEquals("cabin1", p1.getValue("cabin"));
 		assertEquals('a', p1.getValue("embarked"));
-		assertEquals("Passenger [Name=Jean, Embarked=a]", p1.toString());
+		assertEquals("Passenger [passengerId=1.0, survived=2.0, pClass=3.0, name=Jean, sex=homme, age=18.0, sibSp=4.0, parch=5.0, ticket=ticket1, fare=6.7, cabin=cabin1, embarked=a]", p1.toString());
 		assertEquals(null,p1.getValue(""));
 	}
 	
@@ -62,7 +62,7 @@ public class testPoint {
 		assertEquals(0.0, p1.getValue("fare"));
 		assertEquals(null, p1.getValue("cabin"));
 		assertEquals('\0', p1.getValue("embarked"));
-		assertEquals("Passenger [Name=null, Embarked="+'\0'+"]", p1.toString());
+		assertEquals("Passenger [passengerId=0.0, survived=0.0, pClass=0.0, name=null, sex=null, age=0.0, sibSp=0.0, parch=0.0, ticket=null, fare=0.0, cabin=null, embarked="+'\0'+"]", p1.toString());
 	}
 	
 	@Test
@@ -88,6 +88,7 @@ public class testPoint {
 		assertEquals(1.0, p1.getNormalizedValue(ds.getColumns().get(6)));	
 	}
 	
+	@Test
 	public void testGetNormalizedValueIris() {
 		Iris i1 = new Iris(1.0,2.0,3.0,4.0,"setosa");
 		List<IPoint> listPoint = new ArrayList<IPoint>();

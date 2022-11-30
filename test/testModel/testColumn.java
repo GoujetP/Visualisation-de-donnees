@@ -93,5 +93,27 @@ public class testColumn {
 		assertNotNull(NormalizerTypes.BOOLEAN_NORMALIZER);
 	}
 	
+	@Test
+	public void testColumnEquals() {
+		Column c = ds.getColumns().get(0);
+		assertFalse(c.equals(null));
+		assertFalse(c.equals(ds));
+	}
+	
+	@Test
+	public void testColumnName() {
+		Column c = ds.getColumns().get(0);
+		assertEquals("sepalWidth",c.toString());
+	}
+	
+	@Test
+	public void testColumnLink() {
+		Column c1 = ds.getColumns().get(0);
+		Column c2 = new Column("null",null);
+		assertTrue(c1.isLink());
+		assertFalse(c2.isLink());
+	}
+	
+	
 
 }
