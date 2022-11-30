@@ -96,8 +96,8 @@ public class MethodKnn implements IClassificator {
 		List<IPoint> listeData = d.getList();
 		int total = listeData.size();
 		int valSplit = total / nbSplit;
-		List<IPoint> listeTest = listeData.subList(0,valSplit);
-		List<List<IPoint>> listeFinal = new ArrayList<>();
+		List<IPoint> listeTest = new ArrayList<>();
+		List<List<IPoint>> listeFinal = new ArrayList<List<IPoint>>();
 		Collections.shuffle(listeData); // Les données sont souvent rangées par classe donc il faut mélanger ces listes
 		for(int i = 0 ; i < nbSplit ; i++) {
 			for(int j = 0 ; j < valSplit ; j++) {
@@ -106,6 +106,7 @@ public class MethodKnn implements IClassificator {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return -1;
 				}
 				listeData = listeFinal.get(0);
 				listeData = listeFinal.get(1);
@@ -118,9 +119,9 @@ public class MethodKnn implements IClassificator {
 					cptTotal++;
 				}
 			}
-			System.out.println("petit compteur ("+cpt+") grand compteur ("+cptTotal+") " );
-			rob += ((double)(cpt/cptTotal*100));
 		}
+		if(cptTotal == 0) return -1;
+		rob += ((double)(cpt/cptTotal*100));
 		return rob;
 	}
 	
@@ -129,11 +130,20 @@ public class MethodKnn implements IClassificator {
 	public List<List<IPoint>> transverse(List<IPoint> listeData, List<IPoint> listeTest, int n) throws Exception{
 		
 		//if(n > listeTest.size()) throw new Exception();
-
-		for(int i = 0 ; i < n ; i++) {
-			IPoint tmp = listeTest.remove(i);
-			listeData.add(tmp);
+		if(listeTest.isEmpty()) {
+			for(int i = 0 ; i < n ; i++) {
+				IPoint tmp = listeData.remove(i);
+				listeTest.add(tmp);
+			}
+		} else {
+			for(int i = 0 ; i < n ; i++) {
+				IPoint tmp = listeTest.remove(i);
+				listeData.add(tmp);
+				IPoint tmp2 = listeData.remove(i);
+				listeTest.add(tmp2);
+			}
 		}
+		
 		List<List<IPoint>> listeFinal = new ArrayList<>();
 		listeFinal.add(listeData);
 		listeFinal.add(listeTest);

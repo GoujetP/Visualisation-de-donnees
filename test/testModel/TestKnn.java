@@ -115,6 +115,10 @@ public class TestKnn {
 		MethodKnn knn = new MethodKnn(ds,new DManhattan(ds));
 		
 		assertEquals(100.0, knn.robustness("variety", ds, new Iris()));
+		
+		maListe.clear();
+		knn = new MethodKnn(ds,new DManhattan(ds));
+		assertEquals(-1, knn.robustness("variety", ds, new Iris()));
 	}
 	
 	@Test
