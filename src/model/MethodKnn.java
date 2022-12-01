@@ -110,7 +110,7 @@ public class MethodKnn implements IClassificator {
 					return -1;
 				}
 				listeData = listeFinal.get(0);
-				listeData = listeFinal.get(1);
+				listeTest = listeFinal.get(1);
 				DataSet ds1 = new DataSet("ds1", listeData);
 				MethodKnn knn = new MethodKnn(ds1, new DManhattan(ds1));
 				for(IPoint pTest : listeTest) {
