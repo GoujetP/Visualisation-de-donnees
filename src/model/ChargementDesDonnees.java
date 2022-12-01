@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.opencsv.bean.CsvToBean;
@@ -41,7 +42,7 @@ public class ChargementDesDonnees {
 			return chargerReader(Files.newBufferedReader(Paths.get("data" + System.getProperty("file.separator") + fileName)), d);
 		} catch (IllegalStateException | IOException e) {
 			System.out.println(e.getMessage());
-			return null;
+			return new ArrayList<>();
 		}
 		
 	}

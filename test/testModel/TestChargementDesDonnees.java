@@ -1,6 +1,7 @@
 package testModel;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.StringReader;
@@ -110,7 +111,7 @@ public class TestChargementDesDonnees {
 	@Test
 	public void testChargerMauvaisFile() {
 		
-		assertNull(new ChargementDesDonnees().charger("MauvaisChemin", Iris.class));
+		assertTrue(new ChargementDesDonnees().charger("MauvaisChemin", Iris.class).isEmpty());
 	
 	}
 	

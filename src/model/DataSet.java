@@ -1,13 +1,8 @@
 package model;
-import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import com.opencsv.bean.CsvToBeanBuilder;
 
 import utils.Subject;
 
@@ -88,18 +83,6 @@ public class DataSet extends Subject implements IDataset  {
 	@Override
 	public List<IPoint> getList() {
 		return datas;
-	}
-
-	@Override
-	public void charger(String fileName) {
-		try {
-			new CsvToBeanBuilder<Iris>(Files.newBufferedReader(Paths.get("data/" + fileName)))
-			        .withSeparator(',')
-			        .withType(Iris.class)
-			        .build().parse();
-		} catch (IllegalStateException | IOException e) {
-			System.out.println(e.getMessage());
-		}
 	}
 
 }
