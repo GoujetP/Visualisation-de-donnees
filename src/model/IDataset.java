@@ -43,10 +43,5 @@ public interface IDataset extends Iterable<IPoint> {
 	 */
 	
 	public List<IPoint> getList();
-	
-	/**
-	 * Charge les données du fichier CSV passé en paramètre
-	 */
-	public void charger(String fileName);
 
 }
