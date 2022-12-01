@@ -139,7 +139,7 @@ public class PointView extends Application implements Observer {
 		}
 		
 		for (int i = 0 ; i<ds.getList().size() ; i++)  {
-			comboIPoint[i]=ds.getList().get(i).toString();
+			comboIPoint[i]=ds.getList().get(i).print();
 		}
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
@@ -185,7 +185,7 @@ public class PointView extends Application implements Observer {
 					
 					IPoint point = ds.getList().get(0);
 					for (IPoint p : ds.getList()) {
-						if (p.toString().equals(choixDuPoint.getValue())) {
+						if (p.print().equals(choixDuPoint.getValue())) {
 							point=p;
 						}
 					}
@@ -202,7 +202,7 @@ public class PointView extends Application implements Observer {
 					else if (filename.equals("titanic")) {
 						try {
 							pgbar.setProgress(m.robustness("survived", ds, new Passenger()));
-							labelRob.setText(""+m.robustness("survived", ds, new Passenger()));
+							labelRob.setText(pgbar.getProgress()+"%");
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

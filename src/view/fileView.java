@@ -1,5 +1,7 @@
 package view;
 
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,26 +14,27 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class fileView extends Application {
-	
-	
-	
-	
+
+
+
+
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
 		final ComboBox<String> choixFichier = new ComboBox();
-		choixFichier.getItems().setAll("Iris","Titanic");
+		
+		choixFichier.getItems().setAll("iris","titanic");
 		final Button submitFichier = new Button("Valider");
 		submitFichier.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				if (choixFichier.getValue()!=null) 
-					if (choixFichier.getValue().equals("Titanic")) {
-						PointView p = new PointView("titanic");
-					}
-					else if (choixFichier.getValue().equals("Iris")) {
-						PointView p = new PointView("iris");
-					}
+				if (choixFichier.getValue()!=null) {
+					PointView p = new PointView(choixFichier.getValue());
+					
+				}
+
+
+
 			}
 		});
 		VBox vbox = new VBox();
@@ -41,7 +44,7 @@ public class fileView extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
