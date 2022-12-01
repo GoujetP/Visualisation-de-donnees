@@ -36,7 +36,7 @@ public class MethodKnn implements IClassificator {
 			}
 		}
 		IPoint temp = p;
-		double min = 100000000;
+		double min = Double.MAX_VALUE;
 		//on cherche le min dans toute la map puis on ajoute ce min � res 
 		//puis on enl�ve ce min de la map 
 		//et on refait une recherche du min on le stocke et on r�p�te �a k fois
@@ -50,7 +50,7 @@ public class MethodKnn implements IClassificator {
 			res.add(temp);
 			point.remove(temp);
 			Dpoint.remove(temp);
-			min=100000000;
+			min=Double.MAX_VALUE;
 		}
 		return res;
 	}
