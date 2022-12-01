@@ -109,6 +109,5 @@ public class testPoint {
 		DataSet ds=new DataSet("Iris", listPoint);
 		
 		assertEquals(0.0, i1.getNormalizedValue(ds.getColumns().get(0)));	
-	}
-	
+	}	
 }

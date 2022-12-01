@@ -72,4 +72,9 @@ public class Iris implements IPoint{
 	public double getNormalizedValue(Column xcol) {
 		return xcol.getNormalizedValue(this);
 	}
+	
+	@Override
+	public String print() {
+		return toString();
+	}
 }
