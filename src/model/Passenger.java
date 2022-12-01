@@ -93,5 +93,10 @@ public class Passenger implements IPoint{
 	public double getNormalizedValue(Column xcol) {
 		return xcol.getNormalizedValue(this);
 	}
+	
+	@Override
+	public String print() {
+		return "Passenger [passengerId=" + passengerId + ", survived=" + survived + "]";
+	}
 
 }

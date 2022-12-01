@@ -50,5 +50,10 @@ public class VincentLagaffe implements IPoint {
 			return null;
 		}
 	}
+	
+	@Override
+	public String print() {
+		return toString();
+	}
 
 }
