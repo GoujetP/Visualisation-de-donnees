@@ -119,16 +119,22 @@ public class MethodKnn implements IClassificator {
 					String goodRes = (String) pTest.getValue(choix); 
 					if(res.equals(goodRes)) cpt+=1;
 				}
+
 			}
 			cptTotal = listeTest.size();
 			
 			if(cptTotal != 0) {
 				rob += ((double)((cpt/cptTotal))*100);
+				cptTotal = listeTest.size();
+				if(cptTotal != 0) {
+					rob += ((double)(cpt/cptTotal*100));
+				}
+
 			}
 			
 			
 		}
-		 
+
 		return (rob/nbSplit);
 	}
 	
