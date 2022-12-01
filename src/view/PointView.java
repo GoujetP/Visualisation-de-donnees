@@ -201,7 +201,7 @@ public class PointView extends Application implements Observer {
 					}
 					else if (filename.equals("titanic")) {
 						try {
-							pgbar.setProgress(m.robustness("survived", ds, new Passenger()));
+							pgbar.setProgress(m.robustness("sex", ds, new Passenger()));
 							
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
