@@ -20,6 +20,7 @@ import model.IValueNormalizer.NormalizerTypes;
 import model.Iris;
 import model.NotNormalizable;
 import model.NumericColumn;
+import model.Passenger;
 import model.StringColumn;
 
 public class testColumn {
@@ -59,7 +60,7 @@ public class testColumn {
 		Column c = ds.getColumns().get(0);
 		assertEquals(0.0, c.getNormalizedValue(i1));
 		assertEquals(1.0, c.getNormalizedValue(i2));
-		assertEquals(null, c.denormalize(1.0));
+		assertEquals(1.5, c.denormalize(1.0));
 		assertTrue(c.isNormalizable());
 		
 		NumericColumn nc = (NumericColumn) c;
@@ -120,15 +121,31 @@ public class testColumn {
 		assertEquals(ds,c.getDataset());
 	}
 	
-	/*@Test
+	@Test
 	public void testGetNormalizedValue() throws NotNormalizable {
 		Passenger p1 = new Passenger(1,2,3,"Jean","homme",18,4,5,"ticket1",6.7,"cabin1",'a');
 		List<IPoint> listPoint = new ArrayList<IPoint>();
 		listPoint.add(p1);
 		DataSet ds1 = new DataSet("Titanic", listPoint);
 		Column c = ds1.getColumns().get(3);
-		c.getNormalizedValue(p1);
-	}*/
+		assertEquals(-1.0, c.getNormalizedValue(p1));
+	}
+	
+	@Test
+	public void testGetDenormalizedValue() throws NotNormalizable {
+		Passenger p1 = new Passenger(1,2,3,"Jean","homme",18,4,5,"ticket1",6.7,"cabin1",'a');
+		Passenger p2 = new Passenger(1,2,3,"Pierre","homme",26,4,5,"ticket1",6.7,"cabin1",'a');
+		Passenger p3 = new Passenger(1,2,3,"Julien","homme",20,4,5,"ticket1",6.7,"cabin1",'a');
+		List<IPoint> listPoint = new ArrayList<IPoint>();
+		listPoint.add(p1);
+		listPoint.add(p2);
+		listPoint.add(p3);
+		DataSet ds1 = new DataSet("Titanic", listPoint);
+		Column c = ds1.getColumns().get(3);
+		assertEquals("not normalizable", c.getDenormalizedValue(1.0));
+		c = ds1.getColumns().get(5);
+		assertEquals(18.0, c.getDenormalizedValue(0));
+	}
 	
 	
 	

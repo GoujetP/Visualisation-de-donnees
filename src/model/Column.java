@@ -16,8 +16,8 @@ public abstract class Column implements  IValueNormalizer {
 		try {
 			return normalize((Object) point.getValue(this.name));
 		} catch (NotNormalizable e) {
-			e.printStackTrace();
-			return 0;
+			System.err.println("Column not normalizable");
+			return -1;
 		}
 	}
 	
@@ -25,9 +25,8 @@ public abstract class Column implements  IValueNormalizer {
 		try {
 			return denormalize(value);
 		} catch (NotNormalizable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return value;
+			System.err.println("Column not denormalizable");
+			return "not normalizable";
 		}
 	}
 	

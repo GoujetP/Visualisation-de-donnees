@@ -21,7 +21,7 @@ public class NumericColumn extends Column  {
 
 	@Override
 	public Object denormalize(double value) {
-		return null;
+		return (value*((Double)max-(Double)min))+(Double)min;
 	}
 
 	@Override
