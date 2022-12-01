@@ -100,6 +100,7 @@ public class MethodKnn implements IClassificator {
 		List<List<IPoint>> listeFinal = new ArrayList<List<IPoint>>();
 		Collections.shuffle(listeData); // Les données sont souvent rangées par classe donc il faut mélanger ces listes
 		for(int i = 0 ; i < nbSplit ; i++) {
+			cpt = 0; 
 			for(int j = 0 ; j < valSplit ; j++) {
 				try {
 					listeFinal = transverse(listeData,listeTest,valSplit);
@@ -116,13 +117,15 @@ public class MethodKnn implements IClassificator {
 					String res = knn.classifier(k, pTest, choix);
 					String goodRes = (String) pTest.getValue(choix); 
 					if(res.equals(goodRes)) cpt++;
-					cptTotal++;
 				}
 			}
+			cptTotal = listeTest.size();
+			if(cptTotal != 0) {
+				rob += ((double)(cpt/cptTotal*100));
+			}
+			
 		}
-		if(cptTotal == 0) return -1;
-		rob += ((double)(cpt/cptTotal*100));
-		return rob;
+		return rob/nbSplit;
 	}
 	
 
