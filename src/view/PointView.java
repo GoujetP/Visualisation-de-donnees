@@ -139,7 +139,7 @@ public class PointView extends Application implements Observer {
 		}
 		
 		for (int i = 0 ; i<ds.getList().size() ; i++)  {
-			comboIPoint[i]=ds.getList().get(i).toString();
+			comboIPoint[i]=ds.getList().get(i).print();
 		}
 		add.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
@@ -185,14 +185,14 @@ public class PointView extends Application implements Observer {
 					
 					IPoint point = ds.getList().get(0);
 					for (IPoint p : ds.getList()) {
-						if (p.toString().equals(choixDuPoint.getValue())) {
+						if (p.print().equals(choixDuPoint.getValue())) {
 							point=p;
 						}
 					}
 					if (filename.equals("iris")) {
 						try {
 							pgbar.setProgress(m.robustness("variety", ds, new Iris()));
-							labelRob.setText(""+m.robustness("variety", ds, new Iris()));
+							labelRob.setText(pgbar.getProgress()+"%");
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -201,8 +201,8 @@ public class PointView extends Application implements Observer {
 					}
 					else if (filename.equals("titanic")) {
 						try {
-							pgbar.setProgress(m.robustness("survived", ds, new Passenger()));
-							labelRob.setText(""+m.robustness("survived", ds, new Passenger()));
+							pgbar.setProgress(m.robustness("sex", ds, new Passenger()));
+							
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -223,14 +223,14 @@ public class PointView extends Application implements Observer {
 							if (c.getName().equals(comboBoxY.getValue())) yb = c;
 						}*/
 
-						XYChart.Series series = new XYChart.Series();
-						series.setName(nbVoisins.getValue()+" Distance "+choixDistance.getValue());
+						XYChart.Series series1 = new XYChart.Series();
+						series1.setName(nbVoisins.getValue()+" Distance "+choixDistance.getValue());
 						System.out.println(m.getNeighbours((int) nbVoisins.getValue(), point));
 						for (IPoint p : m.getNeighbours((int) nbVoisins.getValue(), point)) {
-							series.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
+							series1.getData().add(new XYChart.Data( p.getNormalizedValue(x), p.getNormalizedValue(y)));
 						}
-						series.getData().add(new XYChart.Data( point.getNormalizedValue(x), point.getNormalizedValue(y)));
-						sc.getData().add(series);
+						series1.getData().add(new XYChart.Data( point.getNormalizedValue(x), point.getNormalizedValue(y)));
+						sc.getData().add(series1);
 
 					} 
 				}
@@ -337,7 +337,7 @@ public class PointView extends Application implements Observer {
 		vbox.getChildren().addAll(sc, hbox);
 		vbox3.setMargin(pgbar, new Insets(10, 10, 10, 10));
 		hbox.setPadding(new Insets(10, 10, 10, 50));
-		
+		stage.setResizable(false);
 		((Group)scene.getRoot()).getChildren().add(vbox);
 		stage.setScene(scene);
 		stage.show();
